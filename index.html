@@ -522,32 +522,6 @@
         id="page-1"
         class="page-container active flex-col items-center justify-center min-h-[85vh] text-center relative"
       >
-        <!-- Cute Floating Elements with Emoji -->
-        <span
-          class="emoji-float top-20 left-[5%]"
-          style="animation-delay: 0s"
-        ></span>
-        <span
-          class="emoji-float top-32 right-[8%]"
-          style="animation-delay: 0.3s"
-        ></span>
-        <span
-          class="emoji-float bottom-40 left-[10%]"
-          style="animation-delay: 0.6s"
-        ></span>
-        <span
-          class="emoji-float bottom-32 right-[5%]"
-          style="animation-delay: 0.9s"
-        ></span>
-        <span
-          class="emoji-float top-48 left-[15%]"
-          style="animation-delay: 1.2s"
-        ></span>
-        <span
-          class="emoji-float bottom-48 right-[12%]"
-          style="animation-delay: 1.5s"
-        ></span>
-
         <!-- Hero Section -->
         <div class="w-full max-w-4xl relative z-10">
           <!-- Welcome Banner -->
@@ -592,13 +566,6 @@
                       class="w-full h-full object-cover"
                     />
                   </div>
-                  <!-- Decorative elements around photo -->
-                  <span
-                    class="absolute -top-2 -right-2 text-2xl animate-wiggle"
-                  ></span>
-                  <span
-                    class="absolute -bottom-1 -left-3 text-xl animate-float-slow"
-                  ></span>
                 </div>
 
                 <!-- Title and Badge -->
@@ -1376,7 +1343,7 @@
             ></div>
           </h2>
           <p class="text-lg text-navy/80 font-medium font-sans">
-            Kegiatan perkuliahan semester 1
+            Kegiatan perkuliahan semester 1 & 2
           </p>
         </div>
 
@@ -1423,7 +1390,11 @@
             class="absolute -top-12 left-0 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-navy flex items-center gap-2"
           >
             <span id="galleryCounter" class="font-bold text-navy">1 / 47</span>
-            <span id="gallerySemester" class="bg-forest text-white text-xs font-bold px-2 py-1 rounded-full">SMT 1</span>
+            <span
+              id="gallerySemester"
+              class="bg-forest text-white text-xs font-bold px-2 py-1 rounded-full"
+              >SMT 1</span
+            >
           </div>
 
           <!-- Main Image -->
@@ -3042,16 +3013,53 @@
 
       // Gallery Functions
       const galleryImages = [
-        "1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg",
-        "6.jpeg", "7.jpeg", "8.jpeg", "9.jpeg", "10.jpeg",
-        "11.jpeg", "12.jpeg", "13.jpeg", "14.jpeg", "15.jpeg",
-        "16.jpeg", "17.jpeg", "18.jpeg", "19.jpeg", "20.jpeg",
-        "21.jpeg", "22.jpeg", "23.jpeg", "24.jpeg", "25.jpeg",
-        "26.jpeg", "27.jpeg", "28.jpeg", "29.jpeg", "30.jpeg",
-        "31.jpeg", "32.jpeg", "33.jpeg", "34.jpeg", "35.jpeg",
-        "36.jpeg", "37.jpeg", "38.jpeg", "39.jpeg", "40.jpeg",
-        "41.jpeg", "42.jpeg", "43.jpeg", "44.jpeg", "45.jpeg",
-        "46.jpeg", "47.jpeg"
+        "1.jpeg",
+        "2.jpeg",
+        "3.jpeg",
+        "4.jpeg",
+        "5.jpeg",
+        "6.jpeg",
+        "7.jpeg",
+        "8.jpeg",
+        "9.jpeg",
+        "10.jpeg",
+        "11.jpeg",
+        "12.jpeg",
+        "13.jpeg",
+        "14.jpeg",
+        "15.jpeg",
+        "16.jpeg",
+        "17.jpeg",
+        "18.jpeg",
+        "19.jpeg",
+        "20.jpeg",
+        "21.jpeg",
+        "22.jpeg",
+        "23.jpeg",
+        "24.jpeg",
+        "25.jpeg",
+        "26.jpeg",
+        "27.jpeg",
+        "28.jpeg",
+        "29.jpeg",
+        "30.jpeg",
+        "31.jpeg",
+        "32.jpeg",
+        "33.jpeg",
+        "34.jpeg",
+        "35.jpeg",
+        "36.jpeg",
+        "37.jpeg",
+        "38.jpeg",
+        "39.jpeg",
+        "40.jpeg",
+        "41.jpeg",
+        "42.jpeg",
+        "43.jpeg",
+        "44.jpeg",
+        "45.jpeg",
+        "46.jpeg",
+        "47.jpeg",
       ];
       const semester2StartIndex = 27; // Index where semester 2 images start (0-based index 27 = image 28)
       let currentImageIndex = 0;
@@ -3070,10 +3078,12 @@
         const isSemester2 = index >= semester2StartIndex;
         if (isSemester2) {
           semesterBadge.textContent = "SMT 2";
-          semesterBadge.className = "bg-terracotta text-white text-xs font-bold px-2 py-1 rounded-full";
+          semesterBadge.className =
+            "bg-terracotta text-white text-xs font-bold px-2 py-1 rounded-full";
         } else {
           semesterBadge.textContent = "SMT 1";
-          semesterBadge.className = "bg-forest text-white text-xs font-bold px-2 py-1 rounded-full";
+          semesterBadge.className =
+            "bg-forest text-white text-xs font-bold px-2 py-1 rounded-full";
         }
 
         modal.classList.remove("hidden");
@@ -3194,7 +3204,7 @@
 
           html += `
             <div
-              class="relative group overflow-hidden rounded-2xl border-4 ${isSemester2 ? 'border-terracotta' : 'border-navy'} shadow-3d-md aspect-square cursor-pointer hover:scale-105 transition-transform duration-300 gallery-item"
+              class="relative group overflow-hidden rounded-2xl border-4 ${isSemester2 ? "border-terracotta" : "border-navy"} shadow-3d-md aspect-square cursor-pointer hover:scale-105 transition-transform duration-300 gallery-item"
               onclick="openGalleryModal(${index})"
             >
               <img
