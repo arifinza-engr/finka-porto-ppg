@@ -392,6 +392,14 @@
             <span>Mata Kuliah</span>
           </button>
           <button
+            onclick="goToPage(7)"
+            class="nav-item px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
+            data-page="7"
+          >
+            <i class="fas fa-book-open text-terracotta"></i>
+            <span>Mata Kuliah 2</span>
+          </button>
+          <button
             onclick="goToPage(5)"
             class="nav-item px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
             data-page="5"
@@ -467,6 +475,17 @@
           >
             <i class="fas fa-book-open text-navy w-6"></i>
             <span class="font-medium">Mata Kuliah</span>
+          </button>
+          <button
+            onclick="
+              goToPage(7);
+              toggleMobileMenu();
+            "
+            class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-terracotta hover:bg-terracotta/10 flex items-center gap-3 transition-all"
+            data-page="7"
+          >
+            <i class="fas fa-book-open text-terracotta w-6"></i>
+            <span class="font-medium">Mata Kuliah 2</span>
           </button>
           <button
             onclick="
@@ -1615,6 +1634,416 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- ================= PAGE 7: MATA KULIAH 2 (SEMESTER 2) ================= -->
+      <div id="page-7" class="page-container flex-col min-h-[85vh]">
+        <!-- Cute Decorations -->
+        <span class="emoji-float top-16 right-12" style="animation-delay: 0.2s">📚</span>
+        <span class="emoji-float bottom-40 left-10" style="animation-delay: 0.7s">✍️</span>
+
+        <div class="text-center mb-8">
+          <span class="inline-block bg-terracotta/20 text-terracotta font-bold px-4 py-1 rounded-full border-2 border-terracotta text-xs mb-3">
+            📚 SEMESTER II
+          </span>
+          <h2 class="text-4xl sm:text-5xl font-serif font-black text-navy mb-4 inline-block relative">
+            📖 Refleksi Mata Kuliah 2
+            <i class="fas fa-sparkles absolute -top-4 -right-8 text-mustard animate-sparkle"></i>
+          </h2>
+          <p class="text-lg text-navy/80 font-medium font-sans">
+            ✨ Refleksi pengalaman belajar semester 2 ✨
+          </p>
+        </div>
+
+        <!-- Semester 2 Content - Direct Display -->
+        <div class="space-y-12 w-full">
+
+          <!-- Course 1: Pembelajaran Mendalam dan Asesmen Lanjut -->
+          <div class="bg-white rounded-3xl shadow-[6px_6px_0px_#17324D] border-4 border-navy p-6 sm:p-8">
+            <h3 class="font-serif font-black text-2xl text-navy mb-6 flex items-center">
+              <span class="bg-forest text-white w-10 h-10 rounded-xl border-2 border-navy flex items-center justify-center mr-3">
+                <i class="fas fa-search-plus"></i>
+              </span>
+              Pembelajaran Mendalam dan Asesmen Lanjut
+            </h3>
+
+            <!-- 4C Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-terracotta mb-2 flex items-center">
+                  <i class="fas fa-link mr-2"></i> Connection
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Mata kuliah Pembelajaran Mendalam dan Asesmen Lanjut sangat berkaitan dengan peran saya sebagai calon guru karena membekali saya dalam merancang, melaksanakan, dan mengevaluasi pembelajaran yang berpusat pada peserta didik. Saya memahami bahwa guru tidak cukup hanya menyampaikan materi, tetapi juga perlu mengenali kebutuhan belajar murid melalui asesmen awal, menyusun pembelajaran yang inklusif, menyesuaikan tingkat tantangan dengan kemampuan murid, serta memanfaatkan hasil asesmen untuk menentukan tindak lanjut pembelajaran. Materi tentang Desain Universal untuk Pembelajaran (DUP), Teaching at the Right Level (TaRL), Culturally Responsive Teaching (CRT), dan pengolahan hasil asesmen membantu saya memahami pentingnya pembelajaran yang bermakna, adaptif, dan berpihak pada kebutuhan peserta didik.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                  <i class="fas fa-mountain mr-2"></i> Challenge
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Sebelum mempelajari mata kuliah ini, saya cenderung memandang pembelajaran sebagai kegiatan menyampaikan materi dan asesmen sebagai cara untuk mengetahui hasil belajar murid. Tantangan saya adalah merancang pembelajaran yang benar-benar sesuai dengan kebutuhan, kemampuan, dan karakteristik setiap peserta didik. Saya perlu belajar melakukan asesmen awal secara tepat, memetakan kebutuhan belajar murid, serta menyesuaikan strategi dan tingkat kesulitan pembelajaran. Pendekatan TaRL menantang saya untuk tidak hanya berpatokan pada usia atau tingkat kelas murid.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                  <i class="fas fa-lightbulb mr-2"></i> Concept
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Konsep utama yang saya pelajari meliputi asesmen awal untuk mengenali kebutuhan belajar murid, pemetaan kebutuhan belajar sebagai dasar perencanaan pembelajaran, Desain Universal untuk Pembelajaran (DUP) untuk menciptakan pembelajaran yang inklusif, Teaching at the Right Level (TaRL) untuk menyesuaikan pembelajaran dengan tingkat kemampuan murid, serta Culturally Responsive Teaching (CRT) untuk mengintegrasikan keberagaman budaya dan pengalaman peserta didik dalam pembelajaran.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-navy mb-2 flex items-center">
+                  <i class="fas fa-sync-alt mr-2"></i> Change
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Setelah mempelajari materi perkuliahan ini, saya ingin mengubah praktik pembelajaran saya menjadi lebih berpusat pada peserta didik dan sesuai dengan kebutuhan mereka. Saya akan berusaha melakukan asesmen awal secara konsisten sebelum merancang pembelajaran, memetakan kebutuhan belajar murid, serta menggunakan hasilnya untuk menentukan strategi, metode, dan tingkat tantangan yang sesuai.
+                </p>
+              </div>
+            </div>
+
+            <!-- Artifact Section -->
+            <div class="bg-navy p-4 rounded-xl">
+              <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                <i class="fas fa-folder-open mr-2"></i> Analisis Artefak
+              </h4>
+              <p class="text-cream/90 text-sm leading-relaxed mb-3">
+                Saya memilih artefak hasil 4C dari kegiatan microteaching dan lesson study karena artefak tersebut dapat menunjukkan penerapan teori pembelajaran dalam praktik nyata sebagai calon guru. Melalui artefak ini, saya dapat memahami proses perencanaan, pelaksanaan, dan evaluasi pembelajaran, serta mengetahui kelebihan dan kekurangan dari praktik mengajar yang telah saya lakukan.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://drive.google.com/file/d/1uyyi-91lqFjmY3qk3Oud8odBq-A6vzTJ/view?usp=drive_link" target="_blank" class="bg-mustard text-navy px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fab fa-google-drive"></i> Lembar Refleksi
+                </a>
+                <a href="https://drive.google.com/drive/folders/1B-My8Cbr_gNG8fg3jjqdNVB7rnx5nXve?usp=drive_link" target="_blank" class="bg-terracotta text-white px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fas fa-archive"></i> Artefak
+                </a>
+              </div>
+            </div>
+
+            <!-- Final Reflection -->
+            <div class="mt-4 bg-gradient-to-r from-forest/10 to-cream/50 p-4 rounded-xl border-2 border-forest">
+              <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                <i class="fas fa-pen-fancy mr-2"></i> Refleksi Akhir
+              </h4>
+              <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                Selama mengikuti mata kuliah Pembelajaran Mendalam dan Asesmen, saya memperoleh pemahaman bahwa pembelajaran yang efektif tidak hanya berfokus pada penyampaian materi dan pencapaian tujuan, tetapi juga pada pengalaman belajar yang bermakna dengan memperhatikan karakteristik, kemampuan awal, dan kebutuhan murid. Melalui kegiatan microteaching dan lesson study, saya belajar menerapkan rancangan pembelajaran, menghadapi berbagai kondisi dalam proses pembelajaran, serta menerima umpan balik dari rekan sejawat sebagai bahan refleksi dan perbaikan. Saya juga memahami bahwa keberhasilan pembelajaran tidak hanya dilihat dari tersampaikannya materi, tetapi juga dari keterlibatan, pemahaman, dan interaksi murid.
+              </p>
+            </div>
+          </div>
+
+          <!-- Course 2: Pembelajaran Sosial dan Emosional -->
+          <div class="bg-white rounded-3xl shadow-[6px_6px_0px_#17324D] border-4 border-navy p-6 sm:p-8">
+            <h3 class="font-serif font-black text-2xl text-navy mb-6 flex items-center">
+              <span class="bg-mustard text-navy w-10 h-10 rounded-xl border-2 border-navy flex items-center justify-center mr-3">
+                <i class="fas fa-heart"></i>
+              </span>
+              Pembelajaran Sosial dan Emosional
+            </h3>
+
+            <!-- 4C Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-terracotta mb-2 flex items-center">
+                  <i class="fas fa-link mr-2"></i> Connection
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Materi Pembelajaran Sosial Emosional (PSE) memiliki keterkaitan yang erat dengan peran saya sebagai calon guru karena pendidikan tidak hanya bertujuan mengembangkan kemampuan akademik peserta didik, tetapi juga kemampuan sosial dan emosional mereka. Saya memahami bahwa kondisi emosional, rasa aman, kepercayaan diri, dan hubungan sosial peserta didik dapat memengaruhi kesiapan mereka dalam belajar.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                  <i class="fas fa-mountain mr-2"></i> Challenge
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Tantangan bagi saya adalah belajar mengenali kebutuhan emosional peserta didik, menciptakan suasana kelas yang aman dan nyaman, serta mengintegrasikan PSE ke dalam kegiatan pembelajaran sehari-hari. Saya juga perlu mengembangkan kemampuan menjadi teladan dalam mengelola emosi, berkomunikasi secara positif, dan menghadapi perbedaan.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                  <i class="fas fa-lightbulb mr-2"></i> Concept
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Konsep utama yang saya pelajari meliputi pentingnya mengenali dan mengelola emosi, membangun hubungan yang positif, menunjukkan empati, serta mengambil keputusan secara bertanggung jawab. Saya juga memahami konsep experiential learning, yaitu pembelajaran melalui pengalaman yang dilanjutkan dengan refleksi dan penerapan dalam kehidupan sehari-hari.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-navy mb-2 flex items-center">
+                  <i class="fas fa-sync-alt mr-2"></i> Change
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Setelah mempelajari materi PSE, saya ingin menjadi calon guru yang lebih peduli terhadap kondisi sosial dan emosional peserta didik. Saya akan berusaha mengenali kebutuhan mereka, membangun komunikasi yang positif, serta menciptakan suasana kelas yang aman, nyaman, dan menghargai perbedaan.
+                </p>
+              </div>
+            </div>
+
+            <!-- Artifact Section -->
+            <div class="bg-navy p-4 rounded-xl">
+              <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                <i class="fas fa-folder-open mr-2"></i> Analisis Artefak
+              </h4>
+              <p class="text-cream/90 text-sm leading-relaxed mb-3">
+                Saya memilih artefak Topik 3.E, yaitu Penerapan Experiential Learning dan PSE di Lingkungan Sekolah, karena artefak tersebut memiliki keterkaitan langsung dengan pemahaman dan penerapan Pembelajaran Sosial Emosional (PSE) dalam peran saya sebagai calon guru.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://drive.google.com/file/d/1fB_t61Knn0FRWndpTgYY1xueQGuyOl6h/view?usp=drive_link" target="_blank" class="bg-mustard text-navy px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fab fa-google-drive"></i> Lembar Refleksi
+                </a>
+                <a href="https://drive.google.com/drive/folders/1eB9I8OhYrmtF33bCVi4GKjAz6-XAl2-w?usp=sharing" target="_blank" class="bg-terracotta text-white px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fas fa-archive"></i> Artefak
+                </a>
+              </div>
+            </div>
+
+            <!-- Final Reflection -->
+            <div class="mt-4 bg-gradient-to-r from-forest/10 to-cream/50 p-4 rounded-xl border-2 border-forest">
+              <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                <i class="fas fa-pen-fancy mr-2"></i> Refleksi Akhir
+              </h4>
+              <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                Selama mengikuti mata kuliah Pembelajaran Sosial Emosional (PSE), saya memperoleh pemahaman bahwa tugas guru tidak hanya menyampaikan pengetahuan, tetapi juga mendukung perkembangan sosial dan emosional peserta didik. Setiap peserta didik memiliki karakteristik, kebutuhan, pengalaman, dan kondisi emosi yang berbeda sehingga guru perlu menciptakan pembelajaran yang aman, nyaman, dan bermakna. Saya juga menyadari bahwa guru memiliki peran penting sebagai teladan dalam mengelola emosi, menunjukkan empati, menghargai perbedaan, dan membangun hubungan positif.
+              </p>
+            </div>
+          </div>
+
+          <!-- Course 3: Teknologi Baru dalam Pengajaran dan Pembelajaran -->
+          <div class="bg-white rounded-3xl shadow-[6px_6px_0px_#17324D] border-4 border-navy p-6 sm:p-8">
+            <h3 class="font-serif font-black text-2xl text-navy mb-6 flex items-center">
+              <span class="bg-terracotta text-white w-10 h-10 rounded-xl border-2 border-navy flex items-center justify-center mr-3">
+                <i class="fas fa-laptop"></i>
+              </span>
+              Teknologi Baru dalam Pengajaran dan Pembelajaran
+            </h3>
+
+            <!-- 4C Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-terracotta mb-2 flex items-center">
+                  <i class="fas fa-link mr-2"></i> Connection
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Materi perkuliahan Teknologi Baru dalam Pengajaran dan Pembelajaran memiliki keterkaitan erat dengan peran saya sebagai calon guru karena membantu saya memahami pentingnya pemanfaatan teknologi dalam merancang, melaksanakan, dan mengevaluasi pembelajaran. Saya menyadari bahwa teknologi bukan sekadar alat untuk menyampaikan materi, tetapi juga dapat meningkatkan keterlibatan, kreativitas, kolaborasi, dan kemandirian belajar peserta didik.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                  <i class="fas fa-mountain mr-2"></i> Challenge
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Tantangan bagi saya adalah menentukan teknologi yang tepat, menyesuaikannya dengan kemampuan peserta didik, serta memastikan bahwa teknologi yang digunakan dapat meningkatkan pemahaman, bukan sekadar menarik perhatian. Saya juga perlu mempelajari perkembangan teknologi baru, seperti kecerdasan buatan (AI), Augmented Reality (AR), dan Virtual Reality (VR).
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                  <i class="fas fa-lightbulb mr-2"></i> Concept
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Konsep utama yang saya pelajari meliputi perkembangan teknologi dalam pendidikan, pemanfaatan media digital interaktif, serta penggunaan teknologi baru seperti AI, AR, dan VR untuk mendukung proses pembelajaran. Saya juga memahami pentingnya menganalisis kebutuhan belajar dan tingkat penguasaan peserta didik sebelum menentukan teknologi yang akan digunakan.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-navy mb-2 flex items-center">
+                  <i class="fas fa-sync-alt mr-2"></i> Change
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Setelah mempelajari mata kuliah ini, saya ingin mengubah cara merancang pembelajaran dengan menjadikan tujuan pembelajaran dan kebutuhan peserta didik sebagai dasar dalam memilih teknologi. Saya akan berusaha menggunakan media digital yang interaktif dan sesuai dengan karakteristik peserta didik agar pembelajaran lebih menarik, efektif, dan bermakna.
+                </p>
+              </div>
+            </div>
+
+            <!-- Artifact Section -->
+            <div class="bg-navy p-4 rounded-xl">
+              <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                <i class="fas fa-folder-open mr-2"></i> Analisis Artefak
+              </h4>
+              <p class="text-cream/90 text-sm leading-relaxed mb-3">
+                Saya memilih artefak Rancangan Respon Pembelajaran Berbasis Kebutuhan Belajar pada Topik 5D Sintesis karena artefak tersebut menunjukkan kemampuan saya dalam merancang pembelajaran berdasarkan kebutuhan dan karakteristik peserta didik dengan pemanfaatan teknologi.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://drive.google.com/file/d/16dYgbWb1YOn1piWHeM54EhhMI-3AddU0/view?usp=drive_link" target="_blank" class="bg-mustard text-navy px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fab fa-google-drive"></i> Lembar Refleksi
+                </a>
+                <a href="https://drive.google.com/drive/folders/1CbrMX-X1gS2fuH1SuEXnaIoX6ZS697zs?usp=drive_link" target="_blank" class="bg-terracotta text-white px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fas fa-archive"></i> Artefak
+                </a>
+              </div>
+            </div>
+
+            <!-- Final Reflection -->
+            <div class="mt-4 bg-gradient-to-r from-forest/10 to-cream/50 p-4 rounded-xl border-2 border-forest">
+              <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                <i class="fas fa-pen-fancy mr-2"></i> Refleksi Akhir
+              </h4>
+              <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                Selama mengikuti mata kuliah Teknologi Baru dalam Pengajaran dan Pembelajaran, saya memperoleh pemahaman bahwa teknologi bukan hanya alat bantu untuk menyampaikan materi, tetapi juga dapat dimanfaatkan dalam perencanaan, pelaksanaan, asesmen, pemberian umpan balik, dan evaluasi pembelajaran agar lebih efektif, interaktif, dan bermakna. Saya menyadari bahwa pemilihan teknologi harus disesuaikan dengan tujuan pembelajaran, karakteristik, kemampuan awal, kebutuhan peserta didik, serta fasilitas yang tersedia di sekolah.
+              </p>
+            </div>
+          </div>
+
+          <!-- Course 4: Projek Kepemimpinan -->
+          <div class="bg-white rounded-3xl shadow-[6px_6px_0px_#17324D] border-4 border-navy p-6 sm:p-8">
+            <h3 class="font-serif font-black text-2xl text-navy mb-6 flex items-center">
+              <span class="bg-navy text-white w-10 h-10 rounded-xl border-2 border-navy flex items-center justify-center mr-3">
+                <i class="fas fa-users-cog"></i>
+              </span>
+              Projek Kepemimpinan
+            </h3>
+
+            <!-- 4C Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-terracotta mb-2 flex items-center">
+                  <i class="fas fa-link mr-2"></i> Connection
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Materi perkuliahan Projek Kepemimpinan berkaitan erat dengan peran saya sebagai calon guru karena guru tidak hanya bertugas menyampaikan materi di kelas, tetapi juga harus mampu mengenali kebutuhan di lingkungan sekitar, merancang solusi, dan bekerja sama dengan berbagai pihak. Pengalaman di Posyandu RW 09 Manyaran mengajarkan saya pentingnya memahami kondisi mitra sebelum menentukan program.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                  <i class="fas fa-mountain mr-2"></i> Challenge
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Tantangan yang saya hadapi dalam projek ini adalah menyesuaikan media dengan kebutuhan balita, yang berbeda dari media pembelajaran untuk siswa di kelas. Saya harus memperhatikan keamanan bahan, ukuran, tekstur, dan kesesuaian aktivitas dengan tahap perkembangan anak. Keterbatasan anggaran juga menuntut kreativitas dalam memilih bahan sederhana.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                  <i class="fas fa-lightbulb mr-2"></i> Concept
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Konsep utama yang saya pelajari adalah learning through play, yaitu pembelajaran melalui bermain yang menempatkan anak sebagai subjek aktif dalam proses belajar. Saya juga memahami bahwa program yang baik harus dirancang berdasarkan analisis kebutuhan mitra, bukan sekadar asumsi.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-navy mb-2 flex items-center">
+                  <i class="fas fa-sync-alt mr-2"></i> Change
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Setelah mengikuti perkuliahan dan melaksanakan projek ini, saya ingin membiasakan diri melakukan analisis kebutuhan melalui observasi dan dialog dengan pihak terkait sebelum merancang pembelajaran atau media. Saya akan berusaha menciptakan media yang aman, sederhana, terjangkau, menarik, dan sesuai dengan tahap perkembangan peserta didik.
+                </p>
+              </div>
+            </div>
+
+            <!-- Artifact Section -->
+            <div class="bg-navy p-4 rounded-xl">
+              <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                <i class="fas fa-folder-open mr-2"></i> Analisis Artefak
+              </h4>
+              <p class="text-cream/90 text-sm leading-relaxed mb-3">
+                Saya memilih Laporan Akhir ini sebagai satu-satunya artefak karena memuat seluruh rangkaian kegiatan Projek Kepemimpinan, mulai dari identifikasi masalah, perancangan media Smart Sensory Mat, pelaksanaan pelatihan, implementasi, evaluasi, hingga serah terima media kepada Posyandu.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://drive.google.com/file/d/18lmDk5PumlYrHuDixsn2St0WQ0qMROjd/view?usp=drive_link" target="_blank" class="bg-mustard text-navy px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fab fa-google-drive"></i> Lembar Refleksi
+                </a>
+                <a href="https://drive.google.com/drive/folders/1esZ_Qav_hFVz2hwJsql4gM9zhBPJvMRg?usp=drive_link" target="_blank" class="bg-terracotta text-white px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fas fa-archive"></i> Artefak
+                </a>
+              </div>
+            </div>
+
+            <!-- Final Reflection -->
+            <div class="mt-4 bg-gradient-to-r from-forest/10 to-cream/50 p-4 rounded-xl border-2 border-forest">
+              <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                <i class="fas fa-pen-fancy mr-2"></i> Refleksi Akhir
+              </h4>
+              <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                Selama mengikuti mata kuliah Projek Kepemimpinan di Posyandu RW 09 Manyaran, Semarang Barat, saya memperoleh pengalaman berharga dalam mengidentifikasi kebutuhan masyarakat, merancang solusi, serta mengembangkan keterampilan kepemimpinan. Melalui observasi dan wawancara dengan kader Posyandu, saya menemukan bahwa kegiatan stimulasi sensorimotorik balita belum dilaksanakan secara rutin karena keterbatasan media edukatif. Oleh karena itu, kelompok saya mengembangkan media Smart Sensory Mat yang aman, menarik, sederhana, dan mudah digunakan.
+              </p>
+            </div>
+          </div>
+
+          <!-- Course 5: Praktik Pengalaman Lapangan (PPL) Mandiri -->
+          <div class="bg-white rounded-3xl shadow-[6px_6px_0px_#17324D] border-4 border-navy p-6 sm:p-8">
+            <h3 class="font-serif font-black text-2xl text-navy mb-6 flex items-center">
+              <span class="bg-rust text-white w-10 h-10 rounded-xl border-2 border-navy flex items-center justify-center mr-3">
+                <i class="fas fa-school"></i>
+              </span>
+              Praktik Pengalaman Lapangan (PPL) Mandiri
+            </h3>
+
+            <!-- 4C Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-terracotta mb-2 flex items-center">
+                  <i class="fas fa-link mr-2"></i> Connection
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Selama mengikuti PPL Mandiri di SDN Pandeanlamper 03, saya menyadari bahwa materi perkuliahan memiliki keterkaitan erat dengan peran saya sebagai calon guru. Teori tentang penyusunan modul ajar, pembelajaran berdiferensiasi, model pembelajaran, dan asesmen menjadi bekal dalam merancang serta melaksanakan pembelajaran Pendidikan Pancasila.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                  <i class="fas fa-mountain mr-2"></i> Challenge
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Tantangan yang saya hadapi selama PPL Mandiri adalah menerapkan teori perkuliahan ke dalam situasi kelas yang memiliki karakteristik murid beragam. Saya juga menghadapi tantangan dalam mengelola waktu ketika melaksanakan kegiatan yang terdiri atas beberapa tahapan. Pengalaman tersebut melatih saya untuk lebih fleksibel, percaya diri, dan mampu menyelesaikan masalah.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                  <i class="fas fa-lightbulb mr-2"></i> Concept
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Konsep penting yang saya pelajari adalah pembelajaran yang berpusat pada murid dan disesuaikan dengan kebutuhan belajarnya. Melalui profiling, saya memahami bahwa pembelajaran berdiferensiasi dapat diterapkan dengan prinsip TaRL untuk menyesuaikan pembelajaran dengan tingkat kesiapan murid, DUP untuk menyediakan pilihan atau alternatif pembelajaran yang sesuai.
+                </p>
+              </div>
+              <div class="bg-cream/50 p-4 rounded-xl border-2 border-navy">
+                <h4 class="font-bold text-lg text-navy mb-2 flex items-center">
+                  <i class="fas fa-sync-alt mr-2"></i> Change
+                </h4>
+                <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                  Setelah mengikuti PPL Mandiri, saya ingin melakukan perubahan dalam merencanakan dan melaksanakan pembelajaran agar semakin sesuai dengan kebutuhan peserta didik. Saya akan terus memanfaatkan hasil profiling untuk menentukan strategi yang tepat, memberikan contoh konkret dan pertanyaan pemandu kepada murid yang mengalami kesulitan.
+                </p>
+              </div>
+            </div>
+
+            <!-- Artifact Section -->
+            <div class="bg-navy p-4 rounded-xl">
+              <h4 class="font-bold text-lg text-mustard mb-2 flex items-center">
+                <i class="fas fa-folder-open mr-2"></i> Analisis Artefak
+              </h4>
+              <p class="text-cream/90 text-sm leading-relaxed mb-3">
+                Saya memilih LK 4.4 Refleksi Praktik Pembelajaran Mandiri Siklus 4 karena artefak ini menggambarkan pengalaman mengajar saya secara menyeluruh pada akhir kegiatan PPL Mandiri. Di dalamnya, saya merefleksikan berbagai tahapan pembelajaran, mulai dari apersepsi, kegiatan inti, penggunaan media, respons murid, hingga kegiatan penutup.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://drive.google.com/file/d/1TlltVvQoLgRdforhdN4l7VqwvxDx-gPZ/view?usp=drive_link" target="_blank" class="bg-mustard text-navy px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fab fa-google-drive"></i> Lembar Refleksi
+                </a>
+                <a href="https://drive.google.com/drive/folders/1OMCYevYl16gUyRB_c7YkHZlZ4qL1UKka?usp=drive_link" target="_blank" class="bg-terracotta text-white px-4 py-2 rounded-full text-sm font-bold inline-flex items-center gap-2">
+                  <i class="fas fa-archive"></i> Artefak
+                </a>
+              </div>
+            </div>
+
+            <!-- Final Reflection -->
+            <div class="mt-4 bg-gradient-to-r from-forest/10 to-cream/50 p-4 rounded-xl border-2 border-forest">
+              <h4 class="font-bold text-lg text-forest mb-2 flex items-center">
+                <i class="fas fa-pen-fancy mr-2"></i> Refleksi Akhir
+              </h4>
+              <p class="text-navy/80 text-sm leading-relaxed text-justify">
+                Selama mengikuti mata kuliah PPL Mandiri, saya memperoleh pengalaman berharga dalam menerapkan pengetahuan dan keterampilan mengajar secara langsung di kelas VI A. Saya menyadari bahwa tugas guru tidak hanya menyampaikan materi, tetapi juga memahami karakteristik, kemampuan, kebutuhan, dan potensi setiap murid agar pembelajaran lebih bermakna dan berpihak pada murid. Melalui kegiatan profiling dan asesmen awal, saya belajar merancang pembelajaran sesuai kebutuhan murid dengan menerapkan pendekatan TaRL, DUP, dan CRT.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-10 flex justify-between w-full">
+          <button
+            onclick="goToPage(4)"
+            class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
+          >
+            Previous
+          </button>
+          <button
+            onclick="goToPage(5)"
+            class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
+          >
+            Next
+          </button>
         </div>
       </div>
 
