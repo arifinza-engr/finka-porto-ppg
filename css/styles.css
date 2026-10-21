@@ -1,300 +1,320 @@
-<style>
-      body {
-        background: linear-gradient(
-          135deg,
-          #fef3e2 0%,
-          #f5e8d0 50%,
-          #fce7d6 100%
-        );
-        background-attachment: fixed;
-        background-image:
-          radial-gradient(
-            circle at 20% 80%,
-            rgba(227, 167, 47, 0.15) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 80% 20%,
-            rgba(63, 107, 87, 0.1) 0%,
-            transparent 50%
-          ),
-          radial-gradient(#d4c8b3 1.5px, transparent 1.5px);
-        background-size:
-          100% 100%,
-          100% 100%,
-          25px 25px;
-        color: #17324d;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-      }
+body {
+  background: linear-gradient(
+    135deg,
+    #fef3e2 0%,
+    #f5e8d0 50%,
+    #fce7d6 100%
+  );
+  background-attachment: fixed;
+  background-image:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(227, 167, 47, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(63, 107, 87, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(#d4c8b3 1.5px, transparent 1.5px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    25px 25px;
+  color: #17324d;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 
-      /* Cute Pattern Overlay */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e3a72f' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        pointer-events: none;
-        z-index: 0;
-      }
+/* Cute Pattern Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e3a72f' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
 
-      .page-container {
-        display: none;
-        animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        position: relative;
-        z-index: 1;
-      }
+.page-container {
+  display: none;
+  position: relative;
+  z-index: 1;
+}
 
-      .page-container.active {
-        display: flex;
-      }
+.page-container.active {
+  display: flex;
+}
 
-      /* Cute Animations */
-      @keyframes slideUpFade {
-        from {
-          opacity: 0;
-          transform: translateY(30px) scale(0.98);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
+/* Cute Animations */
 
-      @keyframes floatSlow {
-        0%,
-        100% {
-          transform: translateY(0) rotate(-2deg);
-        }
-        50% {
-          transform: translateY(-12px) rotate(2deg);
-        }
-      }
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
 
-      @keyframes floatFast {
-        0%,
-        100% {
-          transform: translateY(0) rotate(3deg) scale(1);
-        }
-        50% {
-          transform: translateY(-8px) rotate(-3deg) scale(1.05);
-        }
-      }
+@keyframes floatFast {
+  0%,
+  100% {
+    transform: translateY(0) rotate(3deg) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-3deg) scale(1.05);
+  }
+}
 
-      @keyframes bounceGently {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-5px);
-        }
-      }
+@keyframes bounceGently {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 
-      @keyframes wiggle {
-        0%,
-        100% {
-          transform: rotate(-3deg);
-        }
-        50% {
-          transform: rotate(3deg);
-        }
-      }
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
 
-      @keyframes sparkle {
-        0%,
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.5;
-          transform: scale(0.8);
-        }
-      }
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
 
-      @keyframes pulse-cute {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-      }
+@keyframes pulse-cute {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
 
-      .animate-float-slow {
-        animation: floatSlow 5s ease-in-out infinite;
-      }
-      .animate-float-fast {
-        animation: floatFast 3.5s ease-in-out infinite;
-      }
-      .animate-bounce-gentle {
-        animation: bounceGently 2s ease-in-out infinite;
-      }
-      .animate-wiggle {
-        animation: wiggle 0.5s ease-in-out infinite;
-      }
-      .animate-sparkle {
-        animation: sparkle 2s ease-in-out infinite;
-      }
-      .animate-pulse-cute {
-        animation: pulse-cute 2s ease-in-out infinite;
-      }
+.animate-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+.animate-float-fast {
+  animation: floatFast 3.5s ease-in-out infinite;
+}
+.animate-bounce-gentle {
+  animation: bounceGently 2s ease-in-out infinite;
+}
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out infinite;
+}
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+.animate-pulse-cute {
+  animation: pulse-cute 2s ease-in-out infinite;
+}
 
-      /* 3D Button Press Effect */
-      .btn-3d {
-        transition: all 0.15s ease;
-      }
-      .btn-3d:active {
-        transform: translate(2px, 2px) !important;
-        box-shadow: none !important;
-      }
+/* 3D Button Press Effect */
+.btn-3d {
+  transition: all 0.15s ease;
+}
+.btn-3d:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: none !important;
+}
 
-      /* Cute Card Hover Effects */
-      .cute-card {
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      .cute-card:hover {
-        transform: translateY(-8px) rotate(1deg);
-      }
+/* Cute Card Hover Effects */
+.cute-card {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cute-card:hover {
+  transform: translateY(-8px) rotate(1deg);
+}
 
-      /* Navbar Styles */
-      .navbar {
-        background: linear-gradient(135deg, #ffffff 0%, #fef9f3 100%);
-        backdrop-filter: blur(10px);
-        border-bottom: 3px solid;
-        border-image: linear-gradient(90deg, #e3a72f, #3f6b57, #c85a3f, #17324d)
-          1;
-        box-shadow: 0 4px 20px rgba(23, 50, 77, 0.1);
-      }
+/* Navbar Styles */
+.navbar {
+  background: linear-gradient(135deg, #ffffff 0%, #fef9f3 100%);
+  backdrop-filter: blur(10px);
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #e3a72f, #3f6b57, #c85a3f, #17324d)
+    1;
+  box-shadow: 0 4px 20px rgba(23, 50, 77, 0.1);
+}
 
-      .nav-item {
-        position: relative;
-        transition: all 0.3s ease;
-      }
-      .nav-item::after {
-        content: "";
-        position: absolute;
-        bottom: -4px;
-        left: 50%;
-        width: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #e3a72f, #c85a3f);
-        border-radius: 2px;
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
-      }
-      .nav-item:hover::after,
-      .nav-item.active::after {
-        width: 100%;
-      }
-      .nav-item:hover {
-        transform: translateY(-2px);
-      }
-      .nav-item.active {
-        color: #c85a3f;
-        font-weight: 700;
-      }
+.nav-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+.nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #e3a72f, #c85a3f);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+.nav-item:hover::after,
+.nav-item.active::after {
+  width: 100%;
+}
+.nav-item:hover {
+  transform: translateY(-2px);
+}
+.nav-item.active {
+  color: #c85a3f;
+  font-weight: 700;
+}
 
-      /* Mobile Menu */
-      .mobile-menu {
-        background: linear-gradient(180deg, #ffffff 0%, #fef9f3 100%);
-        border-bottom: 3px solid;
-        border-image: linear-gradient(90deg, #17324d, #e3a72f) 1;
-      }
+/* Dropdown Nav (Refleksi) */
+.nav-dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.nav-dropdown.open #navRefleksiChevron,
+.nav-dropdown:hover #navRefleksiChevron {
+  transform: rotate(180deg);
+}
+.dropdown-item {
+  font-size: 0.9rem;
+}
+.dropdown-item:hover {
+  background-color: rgba(227, 167, 47, 0.12);
+  transform: translateX(4px);
+}
+.dropdown-item::after {
+  display: none;
+}
 
-      /* Cover Art Aspect Ratio & Textures */
-      .a4-ratio {
-        aspect-ratio: 1 / 1.414;
-      }
-      .paper-texture {
-        background-image:
-          linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0.1) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.1) 1px,
-            transparent 1px
-          );
-        background-size: 20px 20px;
-      }
+/* Mobile Menu */
+.mobile-menu {
+  background: linear-gradient(180deg, #ffffff 0%, #fef9f3 100%);
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #17324d, #e3a72f) 1;
+}
 
-      /* Washi Tape CSS */
-      .washi-tape {
-        background-color: rgba(227, 167, 47, 0.7);
-        backdrop-filter: blur(2px);
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-        transform: rotate(-3deg);
-      }
+/* Cover Art Aspect Ratio & Textures */
+.a4-ratio {
+  aspect-ratio: 1 / 1.414;
+}
+.paper-texture {
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px
+    );
+  background-size: 20px 20px;
+}
 
-      /* Cute Badge */
-      .cute-badge {
-        background: linear-gradient(135deg, #fef3e2 0%, #fce7d6 100%);
-        border: 2px dashed #e3a72f;
-        animation: bounceGently 3s ease-in-out infinite;
-      }
+/* Washi Tape CSS */
+.washi-tape {
+  background-color: rgba(227, 167, 47, 0.7);
+  backdrop-filter: blur(2px);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  transform: rotate(-3deg);
+}
 
-      /* Smooth scrollbar */
-      ::-webkit-scrollbar {
-        width: 12px;
-      }
-      ::-webkit-scrollbar-track {
-        background: linear-gradient(180deg, #f5e8d0 0%, #fef3e2 100%);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #17324d 0%, #3f6b57 100%);
-        border-radius: 8px;
-        border: 3px solid #f5e8d0;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #c85a3f 0%, #8b4535 100%);
-      }
+/* Cute Badge */
+.cute-badge {
+  background: linear-gradient(135deg, #fef3e2 0%, #fce7d6 100%);
+  border: 2px dashed #e3a72f;
+  animation: bounceGently 3s ease-in-out infinite;
+}
 
-      /* Cute Emoji Decorations */
-      .emoji-float {
-        position: absolute;
-        font-size: 1.5rem;
-        animation: floatSlow 4s ease-in-out infinite;
-        opacity: 0.7;
-        pointer-events: none;
-      }
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #f5e8d0 0%, #fef3e2 100%);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #17324d 0%, #3f6b57 100%);
+  border-radius: 8px;
+  border: 3px solid #f5e8d0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c85a3f 0%, #8b4535 100%);
+}
 
-      /* Ribbon Decoration */
-      .ribbon {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        width: 60px;
-        height: 60px;
-        overflow: hidden;
-      }
-      .ribbon::before {
-        content: "";
-        position: absolute;
-        top: 15px;
-        right: -20px;
-        width: 40px;
-        height: 8px;
-        background: #c85a3f;
-        transform: rotate(45deg);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-      .ribbon::after {
-        content: "";
-        position: absolute;
-        bottom: 15px;
-        right: -20px;
-        width: 40px;
-        height: 8px;
-        background: #c85a3f;
-        transform: rotate(-45deg);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-    </style>
+/* Cute Emoji Decorations */
+.emoji-float {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: floatSlow 4s ease-in-out infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Ribbon Decoration */
+.ribbon {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+}
+.ribbon::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: -20px;
+  width: 40px;
+  height: 8px;
+  background: #c85a3f;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.ribbon::after {
+  content: "";
+  position: absolute;
+  bottom: 15px;
+  right: -20px;
+  width: 40px;
+  height: 8px;
+  background: #c85a3f;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
