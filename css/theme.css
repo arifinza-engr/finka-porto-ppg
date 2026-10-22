@@ -1,0 +1,104 @@
+/* =========================================================
+   PORTOFOLIO PPG — Tema "Kertas Koreksi" (strict but funny)
+   Garis tegas, sudut kecil, tanpa gradien/bayangan 3D,
+   coretan pena merah + stabilo mustard. Hanya presentasi.
+   Dimuat terakhir; override utilitas Tailwind CDN.
+   ========================================================= */
+:root {
+  --navy: #17324d;
+  --forest: #3f6b57;
+  --paper: #fbf7ee;
+  --cream: #f5e8d0;
+  --mustard: #e3a72f;
+  --pen: #c85a3f;
+  --r: 6px;
+  --rule: 2px solid var(--navy);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Latar: kertas bergaris ala buku tulis */
+body {
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(transparent 0 31px, rgba(23,50,77,.09) 31px 32px);
+  background-size: auto;
+  background-attachment: scroll;
+  line-height: 1.7;
+}
+body::before { display: none; }
+
+/* Tipografi */
+.font-serif, h1, h2, h3 { font-family: "Bricolage Grotesque", Inter, sans-serif; }
+.page-container h2, #page-1 h1 {
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1;
+}
+#page-1 h1 { font-size: clamp(2.6rem, 8vw, 5.5rem); line-height: .95; }
+/* Judul halaman: garis bawah pena merah bergelombang */
+.page-container h2 {
+  background: none; padding: 0;
+  text-decoration: underline wavy var(--pen) 2px;
+  text-underline-offset: 10px;
+}
+.page-container h3 { letter-spacing: -0.02em; }
+
+/* Navbar: garis tebal, tanpa blur */
+.navbar { background: var(--paper); backdrop-filter: none; border: 0; border-image: none; border-bottom: 4px solid var(--navy); box-shadow: none; }
+.nav-item { border-radius: var(--r) !important; }
+.nav-item:hover { transform: none; background: rgba(227,167,47,.2); }
+.nav-item::after { height: 3px; background: var(--pen); border-radius: 0; bottom: 0; }
+.nav-item.active { color: var(--pen); }
+.dropdown-item:hover { transform: none; }
+.mobile-menu { background: var(--paper); border: 0; border-image: none; border-bottom: 4px solid var(--navy); }
+
+/* Kartu & panel: persegi tegas, bingkai tipis, tanpa bayangan */
+.page-container .rounded-3xl, .page-container .rounded-2xl { border-radius: var(--r) !important; }
+.page-container .rounded-xl { border-radius: 4px !important; }
+.page-container .border-4 { border-width: 2px !important; }
+.page-container [class*="shadow-3d"], .page-container [class*="shadow-[") , .shadow-paper { box-shadow: none !important; }
+.page-container [class*="bg-gradient-to"]:not(.text-white) { background: #fff !important; }
+.page-container .bg-white { background: #fff; }
+.page-container button.border-navy, .page-container .group.border-navy {
+  border-left: 8px solid var(--navy) !important;
+}
+.page-container button.border-navy:hover { border-left-color: var(--pen) !important; box-shadow: 0 6px 0 -2px var(--mustard) !important; }
+[class*="-rotate-"], .rotate-3, .rotate-6 { transform: none !important; }
+.hover\:-translate-y-3:hover, .hover\:-translate-y-1:hover { transform: translateY(-3px) !important; }
+.cute-card:hover { transform: translateY(-3px); }
+.btn-3d { transition: transform .2s var(--ease), box-shadow .2s var(--ease), background-color .2s; }
+.btn-3d:active { transform: translateY(1px) !important; box-shadow: none !important; }
+
+/* Tombol: solid navy, hover jadi merah pena (bukan gradien pil) */
+.page-container [class*="bg-gradient-to"].text-white { background: var(--navy) !important; border-radius: var(--r) !important; border-color: var(--navy) !important; }
+.page-container [class*="bg-gradient-to"].text-white:hover { background: var(--pen) !important; }
+a.rounded-full, button.rounded-full { border-radius: var(--r) !important; }
+
+/* Label/lencana: stabilo mustard persegi */
+span.rounded-full[class*="tracking"], .cute-badge, .g-badge { border-radius: 3px !important; }
+.cute-badge { background: var(--mustard); border: var(--rule); color: var(--navy); animation: none; }
+.washi-tape { transform: none; }
+.ribbon { display: none; }
+
+/* Gerak: hanya mikro-interaksi; dekorasi diam */
+.animate-float-slow, .animate-float-fast, .animate-bounce-gentle, .animate-pulse-cute,
+.animate-wiggle, .emoji-float { animation: none; }
+
+/* Fokus */
+:focus-visible { outline: 3px solid var(--pen); outline-offset: 3px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--navy); border: 3px solid var(--paper); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--pen); }
+
+/* Galeri */
+.g-item { border-radius: var(--r); }
+.g-badge { background: var(--navy); backdrop-filter: none; }
+
+/* Video Karya Inovasi: 16:9 */
+.karya-video { margin-inline: auto; }
+.karya-video__frame {
+  position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+  border: var(--rule); border-radius: var(--r); background: var(--navy);
+  outline: 4px solid var(--mustard); outline-offset: -8px;
+}
+.karya-video__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+img, video, iframe { max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) { .animate-sparkle { animation: none; } }

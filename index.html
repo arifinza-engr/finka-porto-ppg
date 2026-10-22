@@ -13,12 +13,19 @@
     />
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="js/config.js"></script>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/gallery.css" />
   </head>
   <body class="font-sans antialiased min-h-screen flex flex-col items-center">
+    <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
     <!-- ================= NAVBAR ================= -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50 px-4 py-3">
+    <nav
+      class="navbar fixed top-0 left-0 right-0 z-50 px-4 py-3"
+      aria-label="Navigasi utama"
+    >
       <div class="max-w-5xl mx-auto flex items-center justify-between">
         <!-- Logo & Title -->
         <div class="flex items-center gap-3">
@@ -41,7 +48,7 @@
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center gap-1">
           <button
-            onclick="goToPage(1)"
+            data-nav="1"
             class="nav-item active px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
             data-page="1"
           >
@@ -49,7 +56,7 @@
             <span>Home</span>
           </button>
           <button
-            onclick="goToPage(2)"
+            data-nav="2"
             class="nav-item px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
             data-page="2"
           >
@@ -57,7 +64,7 @@
             <span>Pengantar</span>
           </button>
           <button
-            onclick="goToPage(3)"
+            data-nav="3"
             class="nav-item px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
             data-page="3"
           >
@@ -66,9 +73,12 @@
           </button>
           <div class="nav-dropdown relative" id="navRefleksi">
             <button
-              onclick="toggleRefleksiDropdown()"
+              data-action="toggle-refleksi"
               class="nav-item px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
               id="navRefleksiTrigger"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="navRefleksiMenu"
             >
               <i class="fas fa-book-open text-navy"></i>
               <span>Refleksi</span>
@@ -85,10 +95,8 @@
                 class="rounded-2xl border-2 border-navy/20 bg-white p-2 shadow-paper"
               >
                 <button
-                  onclick="
-                    goToPage(4);
-                    closeRefleksiDropdown();
-                  "
+                  data-nav="4"
+                  data-close-refleksi
                   class="nav-item dropdown-item w-full text-left px-4 py-3 rounded-xl text-navy font-medium flex items-center gap-3 transition-all"
                   data-page="4"
                 >
@@ -96,10 +104,8 @@
                   <span>Refleksi Semester 1</span>
                 </button>
                 <button
-                  onclick="
-                    goToPage(7);
-                    closeRefleksiDropdown();
-                  "
+                  data-nav="7"
+                  data-close-refleksi
                   class="nav-item dropdown-item w-full text-left px-4 py-3 rounded-xl text-navy font-medium flex items-center gap-3 transition-all"
                   data-page="7"
                 >
@@ -107,10 +113,8 @@
                   <span>Refleksi Semester 2</span>
                 </button>
                 <button
-                  onclick="
-                    goToPage(8);
-                    closeRefleksiDropdown();
-                  "
+                  data-nav="8"
+                  data-close-refleksi
                   class="nav-item dropdown-item w-full text-left px-4 py-3 rounded-xl text-navy font-medium flex items-center gap-3 transition-all"
                   data-page="8"
                 >
@@ -118,10 +122,8 @@
                   <span>Refleksi dan RTL</span>
                 </button>
                 <button
-                  onclick="
-                    goToPage(9);
-                    closeRefleksiDropdown();
-                  "
+                  data-nav="9"
+                  data-close-refleksi
                   class="nav-item dropdown-item w-full text-left px-4 py-3 rounded-xl text-navy font-medium flex items-center gap-3 transition-all"
                   data-page="9"
                 >
@@ -132,7 +134,7 @@
             </div>
           </div>
           <button
-            onclick="goToPage(5)"
+            data-nav="5"
             class="nav-item px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
             data-page="5"
           >
@@ -140,7 +142,7 @@
             <span>Galeri</span>
           </button>
           <button
-            onclick="goToPage(6)"
+            data-nav="6"
             class="nav-item px-4 py-2 rounded-xl text-navy font-medium flex items-center gap-2"
             data-page="6"
           >
@@ -151,8 +153,12 @@
 
         <!-- Mobile Menu Button -->
         <button
-          onclick="toggleMobileMenu()"
+          data-action="toggle-mobile-menu"
           class="md:hidden w-10 h-10 rounded-xl bg-cream border-2 border-navy flex items-center justify-center shadow-md hover:bg-mustard/20 transition-colors"
+          id="menuButton"
+          aria-label="Buka menu navigasi"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
         >
           <i class="fas fa-bars text-navy" id="menuIcon"></i>
         </button>
@@ -162,13 +168,12 @@
       <div
         id="mobileMenu"
         class="mobile-menu hidden md:hidden mt-3 py-4 px-4 rounded-2xl border-2 border-navy/20"
+        aria-hidden="true"
       >
         <div class="flex flex-col gap-2">
           <button
-            onclick="
-              goToPage(1);
-              toggleMobileMenu();
-            "
+            data-nav="1"
+            data-close-mobile
             class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-mustard hover:bg-mustard/10 flex items-center gap-3 transition-all"
             data-page="1"
           >
@@ -176,10 +181,8 @@
             <span class="font-medium">Home</span>
           </button>
           <button
-            onclick="
-              goToPage(2);
-              toggleMobileMenu();
-            "
+            data-nav="2"
+            data-close-mobile
             class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-forest hover:bg-forest/10 flex items-center gap-3 transition-all"
             data-page="2"
           >
@@ -187,10 +190,8 @@
             <span class="font-medium">Pengantar</span>
           </button>
           <button
-            onclick="
-              goToPage(3);
-              toggleMobileMenu();
-            "
+            data-nav="3"
+            data-close-mobile
             class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-terracotta hover:bg-terracotta/10 flex items-center gap-3 transition-all"
             data-page="3"
           >
@@ -198,9 +199,11 @@
             <span class="font-medium">Arah Langkahku</span>
           </button>
           <button
-            onclick="toggleRefleksiMobile()"
+            data-action="toggle-refleksi-mobile"
             class="w-full px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-navy hover:bg-navy/10 flex items-center justify-between transition-all"
             id="refleksiMobileTrigger"
+            aria-expanded="false"
+            aria-controls="refleksiMobileSubmenu"
           >
             <span class="flex items-center gap-3">
               <i class="fas fa-book-open text-navy w-6"></i>
@@ -217,10 +220,8 @@
             style="display: none"
           >
             <button
-              onclick="
-                goToPage(4);
-                toggleMobileMenu();
-              "
+              data-nav="4"
+              data-close-mobile
               class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-navy hover:bg-navy/10 flex items-center gap-3 transition-all"
               data-page="4"
             >
@@ -228,10 +229,8 @@
               <span class="font-medium">Refleksi Semester 1</span>
             </button>
             <button
-              onclick="
-                goToPage(7);
-                toggleMobileMenu();
-              "
+              data-nav="7"
+              data-close-mobile
               class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-terracotta hover:bg-terracotta/10 flex items-center gap-3 transition-all"
               data-page="7"
             >
@@ -239,10 +238,8 @@
               <span class="font-medium">Refleksi Semester 2</span>
             </button>
             <button
-              onclick="
-                goToPage(8);
-                toggleMobileMenu();
-              "
+              data-nav="8"
+              data-close-mobile
               class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-forest hover:bg-forest/10 flex items-center gap-3 transition-all"
               data-page="8"
             >
@@ -250,10 +247,8 @@
               <span class="font-medium">Refleksi dan RTL</span>
             </button>
             <button
-              onclick="
-                goToPage(9);
-                toggleMobileMenu();
-              "
+              data-nav="9"
+              data-close-mobile
               class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-mustard hover:bg-mustard/10 flex items-center gap-3 transition-all"
               data-page="9"
             >
@@ -262,10 +257,8 @@
             </button>
           </div>
           <button
-            onclick="
-              goToPage(5);
-              toggleMobileMenu();
-            "
+            data-nav="5"
+            data-close-mobile
             class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-mustard hover:bg-mustard/10 flex items-center gap-3 transition-all"
             data-page="5"
           >
@@ -273,10 +266,8 @@
             <span class="font-medium">Galeri</span>
           </button>
           <button
-            onclick="
-              goToPage(6);
-              toggleMobileMenu();
-            "
+            data-nav="6"
+            data-close-mobile
             class="w-full text-left px-4 py-3 rounded-xl bg-white border-2 border-navy/10 hover:border-rust hover:bg-rust/10 flex items-center gap-3 transition-all"
             data-page="6"
           >
@@ -290,7 +281,11 @@
     <!-- Spacer for Fixed Navbar -->
     <div class="h-20"></div>
 
-    <main class="w-full max-w-5xl flex-grow relative px-4 py-6 sm:px-6 lg:px-8">
+    <main
+      id="main-content"
+      tabindex="-1"
+      class="w-full max-w-6xl flex-grow relative px-4 py-6 sm:px-6 lg:px-8"
+    >
       <!-- ================= PAGE 1: IDENTITAS ================= -->
       <div
         id="page-1"
@@ -480,7 +475,7 @@
           <!-- CTA Button -->
           <div class="mt-8 flex justify-center">
             <button
-              onclick="goToPage(2)"
+              data-nav="2"
               class="btn-3d group relative bg-gradient-to-r from-mustard via-terracotta to-forest text-white border-4 border-navy px-10 py-4 rounded-full font-bold text-xl shadow-[6px_6px_0px_#17324D] hover:-translate-y-3 hover:shadow-[8px_8px_0px_#17324D] transition-all duration-300 flex items-center gap-3 overflow-hidden"
             >
               <span
@@ -594,13 +589,13 @@
 
         <div class="mt-10 flex justify-between w-full items-center">
           <button
-            onclick="goToPage(1)"
+            data-nav="1"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Previous
           </button>
           <button
-            onclick="goToPage(3)"
+            data-nav="3"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Next
@@ -647,7 +642,11 @@
             class="bg-white rounded-2xl shadow-3d-md border-4 border-navy overflow-hidden flex flex-col transform transition-transform hover:-translate-y-2"
           >
             <button
-              onclick="toggleSection('tujuan')"
+              data-action="toggle-section"
+              data-section="tujuan"
+              id="trigger-tujuan"
+              aria-expanded="false"
+              aria-controls="content-tujuan"
               class="w-full text-left p-6 bg-forest text-white flex justify-between items-center border-b-4 border-navy hover:bg-navy transition-colors"
             >
               <span class="font-serif text-2xl font-bold flex items-center"
@@ -699,7 +698,11 @@
             class="bg-white rounded-2xl shadow-3d-md border-4 border-navy overflow-hidden flex flex-col transform transition-transform hover:-translate-y-2"
           >
             <button
-              onclick="toggleSection('inspirasi')"
+              data-action="toggle-section"
+              data-section="inspirasi"
+              id="trigger-inspirasi"
+              aria-expanded="false"
+              aria-controls="content-inspirasi"
               class="w-full text-left p-6 bg-mustard text-navy flex justify-between items-center border-b-4 border-navy hover:bg-white transition-colors"
             >
               <span class="font-serif text-2xl font-bold flex items-center"
@@ -749,7 +752,11 @@
             class="bg-white rounded-2xl shadow-3d-md border-4 border-navy overflow-hidden md:col-span-2 transform transition-transform hover:-translate-y-2"
           >
             <button
-              onclick="toggleSection('visi')"
+              data-action="toggle-section"
+              data-section="visi"
+              id="trigger-visi"
+              aria-expanded="false"
+              aria-controls="content-visi"
               class="w-full text-left p-6 bg-terracotta text-white flex justify-between items-center border-b-4 border-navy hover:bg-rust transition-colors"
             >
               <span class="font-serif text-2xl font-bold flex items-center"
@@ -766,7 +773,7 @@
             </button>
             <div
               id="content-visi"
-              class="hidden p-8 text-navy bg-cream font-sans text-center relative"
+              class="hidden p-8 text-navy bg-cream font-sans relative"
             >
               <i
                 class="fas fa-star absolute top-4 left-4 text-mustard text-2xl animate-float-fast"
@@ -774,26 +781,68 @@
               <i
                 class="fas fa-star absolute bottom-4 right-4 text-mustard text-2xl animate-float-slow"
               ></i>
-              <p
-                class="font-serif text-2xl italic font-bold leading-relaxed max-w-3xl mx-auto"
+
+              <div
+                class="grid grid-cols-1 gap-8 max-w-3xl mx-auto relative z-10"
               >
-                "Menjadi guru yang humanis, kontekstual, dan adaptif terhadap
-                perkembangan zaman; mampu menjadi teladan, membangkitkan
-                semangat, serta memberdayakan peserta didik melalui pembelajaran
-                yang bermakna, dekat dengan kehidupan nyata, dan didukung
-                pemanfaatan teknologi secara bijaksana, sehingga mampu membentuk
-                generasi yang berkarakter, kritis, kreatif, mandiri, dan siap
-                menghadapi masa depan."
-              </p>
+                <!-- Visi 1: Pendidikan Indonesia -->
+                <div class="text-center">
+                  <span
+                    class="inline-flex items-center bg-navy text-white font-bold text-sm uppercase tracking-wide px-4 py-2 rounded-full mb-4 shadow-sm"
+                  >
+                    <i class="fas fa-flag mr-2 text-mustard"></i>
+                    Visi Pribadi untuk Pendidikan Indonesia
+                  </span>
+                  <p
+                    class="font-serif text-xl md:text-2xl italic font-bold leading-relaxed"
+                  >
+                    “Mewujudkan pendidikan Indonesia yang berkualitas, inklusif,
+                    dan berkeadilan untuk membentuk generasi yang berkarakter,
+                    berakhlak mulia, berpikir kritis, kreatif, berakar pada
+                    budaya lokal, serta adaptif terhadap perkembangan zaman
+                    melalui pembelajaran yang bermakna dan berpihak pada setiap
+                    murid.”
+                  </p>
+                </div>
+
+                <!-- Pemisah -->
+                <div class="flex items-center justify-center gap-3">
+                  <span class="h-1 w-16 bg-navy rounded-full"></span>
+                  <i class="fas fa-star text-mustard"></i>
+                  <span class="h-1 w-16 bg-navy rounded-full"></span>
+                </div>
+
+                <!-- Visi 2: Calon Guru -->
+                <div class="text-center">
+                  <span
+                    class="inline-flex items-center bg-navy text-white font-bold text-sm uppercase tracking-wide px-4 py-2 rounded-full mb-4 shadow-sm"
+                  >
+                    <i class="fas fa-chalkboard-teacher mr-2 text-mustard"></i>
+                    Visi Pribadi sebagai Calon Guru
+                  </span>
+                  <p
+                    class="font-serif text-xl md:text-2xl italic font-bold leading-relaxed"
+                  >
+                    “Menjadi guru yang tegas dalam prinsip, reflektif dalam
+                    tindakan, dan inovatif dalam pembelajaran, serta senantiasa
+                    berpihak pada murid untuk menciptakan lingkungan belajar
+                    yang aman, menyenangkan, dan bermakna.”
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Misi -->
+          <!-- Rencana Tindak Lanjut Visi Pribadi sebagai Calon Guru -->
           <div
             class="bg-white rounded-2xl shadow-3d-md border-4 border-navy overflow-hidden md:col-span-2 transform transition-transform hover:-translate-y-2"
           >
             <button
-              onclick="toggleSection('misi')"
+              data-action="toggle-section"
+              data-section="misi"
+              id="trigger-misi"
+              aria-expanded="false"
+              aria-controls="content-misi"
               class="w-full text-left p-6 bg-navy text-white flex justify-between items-center border-b-4 border-navy hover:bg-opacity-90 transition-colors"
             >
               <span class="font-serif text-2xl font-bold flex items-center"
@@ -801,7 +850,7 @@
                   class="bg-mustard text-navy w-10 h-10 rounded-full flex items-center justify-center mr-3 shadow-sm"
                   ><i class="fas fa-rocket"></i
                 ></span>
-                Misi</span
+                Rencana Tindak Lanjut Visi Pribadi sebagai Calon Guru</span
               >
               <i
                 id="icon-misi"
@@ -823,12 +872,12 @@
                   </div>
                   <p class="pt-1 font-sans text-justify">
                     <strong class="text-lg text-forest block mb-1"
-                      >Mengembangkan kompetensi diri secara
-                      berkelanjutan</strong
+                      >Mengikuti Program PPG Calon Guru</strong
                     >
-                    sebagai pendidik agar mampu mengikuti perkembangan zaman,
-                    memahami kebutuhan peserta didik, dan memberikan
-                    pembelajaran yang relevan.
+                    Mengikuti seluruh rangkaian kegiatan PPG Calon Guru dengan
+                    sungguh-sungguh untuk meningkatkan pengetahuan,
+                    keterampilan, dan kompetensi sebagai bekal menjadi guru yang
+                    profesional.
                   </p>
                 </li>
                 <li
@@ -841,12 +890,12 @@
                   </div>
                   <p class="pt-1 font-sans text-justify">
                     <strong class="text-lg text-mustard block mb-1"
-                      >Menyelenggarakan pembelajaran yang kontekstual dan
-                      bermakna</strong
+                      >Mengenal Karakteristik dan Kebutuhan Setiap Murid</strong
                     >
-                    dengan menghubungkan materi pembelajaran dengan kehidupan
-                    sehari-hari, lingkungan sekitar, serta permasalahan nyata
-                    yang dihadapi peserta didik.
+                    Melakukan pengamatan dan asesmen awal untuk memahami
+                    kemampuan, minat, karakteristik, serta kebutuhan belajar
+                    murid agar dapat merancang pembelajaran yang sesuai dan
+                    berpihak pada murid.
                   </p>
                 </li>
                 <li
@@ -859,12 +908,32 @@
                   </div>
                   <p class="pt-1 font-sans text-justify">
                     <strong class="text-lg text-terracotta block mb-1"
-                      >Mengintegrasikan perkembangan teknologi</strong
+                      >Menciptakan Pembelajaran yang Inovatif, Aman, dan
+                      Bermakna</strong
                     >
-                    dalam proses pembelajaran secara bijaksana untuk menciptakan
-                    pembelajaran yang inovatif dan menarik, dengan tetap
-                    mengutamakan pembentukan karakter, tanggung jawab,
-                    kemandirian, dan nilai-nilai kemanusiaan.
+                    Menerapkan aturan secara tegas dan adil, serta mengembangkan
+                    strategi, metode, dan media pembelajaran yang bervariasi
+                    untuk menciptakan lingkungan belajar yang aman,
+                    menyenangkan, dan bermakna.
+                  </p>
+                </li>
+                <li
+                  class="flex items-start gap-4 bg-white p-5 rounded-2xl border-2 border-navy shadow-3d-sm font-sans"
+                >
+                  <div
+                    class="bg-navy text-white w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl border-2 border-navy transform rotate-3 shadow-sm"
+                  >
+                    4
+                  </div>
+                  <p class="pt-1 font-sans text-justify">
+                    <strong class="text-lg text-navy block mb-1"
+                      >Melakukan Evaluasi, Refleksi, dan Pengembangan
+                      Diri</strong
+                    >
+                    Mengevaluasi pembelajaran yang telah dilaksanakan, melakukan
+                    refleksi, menerima umpan balik, serta terus belajar dan
+                    mengembangkan diri untuk meningkatkan kualitas pembelajaran
+                    secara berkelanjutan.
                   </p>
                 </li>
               </ul>
@@ -874,13 +943,13 @@
 
         <div class="mt-10 flex justify-between w-full">
           <button
-            onclick="goToPage(2)"
+            data-nav="2"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Previous
           </button>
           <button
-            onclick="goToPage(4)"
+            data-nav="4"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Next
@@ -919,7 +988,8 @@
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full perspective-1000"
         >
           <button
-            onclick="openModal('Filosofi Pendidikan dan Pendidikan Nilai')"
+            data-action="open-subject-modal"
+            data-subject="Filosofi Pendidikan dan Pendidikan Nilai"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -943,7 +1013,8 @@
           </button>
 
           <button
-            onclick="openModal('Pemahaman Peserta Didik dan Pembelajaran')"
+            data-action="open-subject-modal"
+            data-subject="Pemahaman Peserta Didik dan Pembelajaran"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -967,7 +1038,8 @@
           </button>
 
           <button
-            onclick="openModal('Pembelajaran Mendalam dan Asesmen Dasar')"
+            data-action="open-subject-modal"
+            data-subject="Pembelajaran Mendalam dan Asesmen Dasar"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -991,7 +1063,8 @@
           </button>
 
           <button
-            onclick="openModal('Praktik Pengalaman Lapangan (PPL) Terbimbing')"
+            data-action="open-subject-modal"
+            data-subject="Praktik Pengalaman Lapangan (PPL) Terbimbing"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1015,11 +1088,8 @@
           </button>
 
           <button
-            onclick="
-              openModal(
-                'Pola Pikir Bertumbuh (Growth Mindset) dalam Pembelajaran',
-              )
-            "
+            data-action="open-subject-modal"
+            data-subject="Pola Pikir Bertumbuh (Growth Mindset) dalam Pembelajaran"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1043,7 +1113,8 @@
           </button>
 
           <button
-            onclick="openModal('Perencanaan dan Perancangan Kurikulum')"
+            data-action="open-subject-modal"
+            data-subject="Perencanaan dan Perancangan Kurikulum"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1069,13 +1140,13 @@
 
         <div class="mt-10 flex justify-between w-full">
           <button
-            onclick="goToPage(3)"
+            data-nav="3"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Previous
           </button>
           <button
-            onclick="goToPage(7)"
+            data-nav="7"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Next
@@ -1084,50 +1155,88 @@
       </div>
 
       <!-- ================= PAGE 5: GALERI ================= -->
-      <div id="page-5" class="page-container flex-col min-h-[85vh]">
-        <!-- Cute Decorations -->
-        <span
-          class="emoji-float top-16 right-12"
-          style="animation-delay: 0.2s"
-        ></span>
-        <span
-          class="emoji-float bottom-40 left-10"
-          style="animation-delay: 0.7s"
-        ></span>
-        <span
-          class="emoji-float top-32 left-20"
-          style="animation-delay: 1.2s"
-        ></span>
-
-        <div class="text-center mb-10">
+      <div id="page-5" class="page-container flex-col min-h-[85vh] w-full">
+        <!-- ================= HEADER (tanpa card) ================= -->
+        <div class="text-center mb-8">
           <h2
             class="text-4xl sm:text-5xl font-serif font-black text-navy mb-4 inline-block relative"
           >
-            Galeri
-            <div
-              class="absolute -bottom-2 left-0 w-full h-4 bg-gradient-to-r from-mustard via-terracotta to-forest -z-10 rounded-full opacity-70"
-            ></div>
+            Galeri Kegiatan
+            <i
+              class="fas fa-camera absolute -top-4 -right-8 text-mustard animate-sparkle"
+            ></i>
           </h2>
           <p class="text-lg text-navy/80 font-medium font-sans">
-            Kegiatan perkuliahan semester 1 & 2
+            Dokumentasi kegiatan Seminar PPG, pertiap kelas, dan bully te yang
+            menjadi bagian dari proses belajar menjadi guru.
           </p>
         </div>
 
-        <!-- Gallery Grid -->
-        <div
-          id="galleryGrid"
-          class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full"
-        ></div>
+        <!-- ================= RINGKASAN ================= -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          <span
+            class="bg-mustard/25 text-rust border-2 border-mustard font-sans font-bold text-xs tracking-widest uppercase px-4 py-2 rounded-full"
+          >
+            48 Foto
+          </span>
+          <span
+            class="bg-mustard/25 text-rust border-2 border-mustard font-sans font-bold text-xs tracking-widest uppercase px-4 py-2 rounded-full"
+          >
+            2 Semester
+          </span>
+          <span
+            class="bg-mustard/25 text-rust border-2 border-mustard font-sans font-bold text-xs tracking-widest uppercase px-4 py-2 rounded-full"
+          >
+            PPG 2026
+          </span>
+        </div>
 
-        <div class="mt-10 flex justify-between w-full">
+        <!-- ================= FILTER BAR ================= -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <div
+            id="galleryFilters"
+            class="relative inline-flex rounded-full bg-navy/5 p-1"
+          >
+            <span
+              id="filterIndicator"
+              class="absolute inset-y-1 left-0 rounded-full bg-navy transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            ></span>
+            <button
+              data-filter="all"
+              class="g-filter is-active relative z-10 rounded-full px-4 py-2 text-xs font-bold transition-colors duration-300 sm:text-sm"
+            >
+              Semua
+            </button>
+            <button
+              data-filter="1"
+              class="g-filter relative z-10 rounded-full px-4 py-2 text-xs font-bold transition-colors duration-300 sm:text-sm"
+            >
+              Semester 1
+            </button>
+            <button
+              data-filter="2"
+              class="g-filter relative z-10 rounded-full px-4 py-2 text-xs font-bold transition-colors duration-300 sm:text-sm"
+            >
+              Semester 2
+            </button>
+          </div>
+          <p class="text-xs font-semibold text-navy/45">
+            <span id="galleryCount">48</span> foto ditampilkan
+          </p>
+        </div>
+
+        <!-- ================= GRID ================= -->
+        <div id="galleryGrid" class="g-grid relative w-full"></div>
+
+        <div class="mt-12 flex justify-between w-full">
           <button
-            onclick="goToPage(4)"
+            data-nav="4"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Previous
           </button>
           <button
-            onclick="goToPage(6)"
+            data-nav="6"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Next
@@ -1135,73 +1244,125 @@
         </div>
       </div>
 
-      <!-- Gallery Modal -->
+      <!-- ================= LIGHTBOX ================= -->
       <div
         id="galleryModal"
-        class="fixed inset-0 z-50 hidden flex items-center justify-center p-4"
+        class="fixed inset-0 z-[70] hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-label="Galeri foto kegiatan"
       >
         <div
-          class="relative w-full max-w-5xl max-h-[90vh] flex flex-col items-center"
-        >
-          <!-- Close Button -->
-          <button
-            onclick="closeGalleryModal()"
-            class="absolute -top-12 right-0 w-10 h-10 bg-white text-navy rounded-full flex items-center justify-center border-2 border-navy hover:bg-terracotta hover:text-white transition-colors z-10"
-          >
-            <i class="fas fa-times text-xl"></i>
-          </button>
+          id="galleryBackdrop"
+          class="absolute inset-0 bg-navy/95 opacity-0"
+        ></div>
 
-          <!-- Image Counter -->
+        <div id="galleryShell" class="relative flex h-full w-full flex-col">
+          <!-- Top bar -->
           <div
-            class="absolute -top-12 left-0 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-navy flex items-center gap-2"
+            class="flex items-start justify-between gap-4 px-4 pt-4 sm:px-6 sm:pt-6"
           >
-            <span id="galleryCounter" class="font-bold text-navy">1 / 47</span>
-            <span
-              id="gallerySemester"
-              class="bg-forest text-white text-xs font-bold px-2 py-1 rounded-full"
-              >SMT 1</span
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+              <div
+                class="flex items-baseline gap-1.5 rounded-lg border border-white/20 bg-navy/40 px-4 py-2"
+              >
+                <span id="galleryCounter" class="text-sm font-black text-white"
+                  >1</span
+                >
+                <span class="text-xs text-white/40">/</span>
+                <span id="galleryTotal" class="text-xs font-bold text-white/60"
+                  >48</span
+                >
+              </div>
+              <span
+                id="gallerySemester"
+                class="rounded-full bg-forest px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white"
+                >SMT 1</span
+              >
+            </div>
+            <button
+              data-action="close-gallery-modal"
+              aria-label="Tutup"
+              class="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-white/20 bg-navy/40 text-lg text-white transition-all duration-300 hover:bg-terracotta hover:border-terracotta"
             >
+              <i class="fas fa-xmark"></i>
+            </button>
           </div>
 
-          <!-- Main Image -->
-          <img
-            id="galleryImage"
-            src=""
-            alt="Gallery Image"
-            class="max-w-full max-h-[75vh] rounded-3xl border-4 border-white shadow-2xl object-contain"
-          />
-
-          <!-- Navigation Arrows -->
-          <button
-            onclick="prevImage()"
-            id="prevBtn"
-            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:translate-x-0 w-12 h-12 bg-white text-navy rounded-full flex items-center justify-center border-2 border-navy hover:bg-mustard hover:text-white transition-colors shadow-lg"
+          <!-- Stage -->
+          <div
+            id="galleryStage"
+            class="relative flex min-h-0 flex-1 items-center justify-center px-3 py-3 sm:px-16"
           >
-            <i class="fas fa-chevron-left text-xl"></i>
-          </button>
-          <button
-            onclick="nextImage()"
-            id="nextBtn"
-            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-0 w-12 h-12 bg-white text-navy rounded-full flex items-center justify-center border-2 border-navy hover:bg-mustard hover:text-white transition-colors shadow-lg"
-          >
-            <i class="fas fa-chevron-right text-xl"></i>
-          </button>
+            <button
+              data-action="gallery-prev"
+              id="prevBtn"
+              aria-label="Sebelumnya"
+              class="absolute left-2 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-lg border border-white/20 bg-navy/40 text-white transition-all duration-300 hover:bg-white hover:text-navy sm:left-4 sm:h-12 sm:w-12"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
 
-          <!-- Caption -->
-          <p class="text-white/80 text-center mt-4 font-medium">
-            Klik untuk melihat foto lebih besar
-          </p>
+            <div
+              id="galleryFrame"
+              class="relative flex max-h-full max-w-full items-center justify-center"
+            >
+              <img
+                id="galleryImage"
+                src=""
+                alt="Foto kegiatan"
+                class="max-h-[68vh] w-auto max-w-full rounded-lg border-2 border-white/20 object-contain transition-transform duration-500 ease-out"
+              />
+              <div
+                id="galleryLoader"
+                class="absolute inset-0 hidden place-items-center"
+              >
+                <span
+                  class="h-10 w-10 animate-spin rounded-full border-[3px] border-white/25 border-t-white"
+                ></span>
+              </div>
+            </div>
+
+            <button
+              data-action="gallery-next"
+              id="nextBtn"
+              aria-label="Berikutnya"
+              class="absolute right-2 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-lg border border-white/20 bg-navy/40 text-white transition-all duration-300 hover:bg-white hover:text-navy sm:right-4 sm:h-12 sm:w-12"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- Caption + filmstrip -->
+          <div class="px-4 pb-5 sm:px-6">
+            <p
+              id="galleryCaption"
+              class="text-center text-xs font-semibold tracking-wide text-white/60 sm:text-sm"
+            >
+              Gunakan ← → untuk berpindah foto
+            </p>
+            <div
+              id="galleryFilmstrip"
+              class="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            ></div>
+          </div>
         </div>
       </div>
 
       <!-- Modal for Subject Details -->
       <div
         id="subjectModal"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-labelledby="modalTitle"
         class="fixed inset-0 bg-navy/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4"
       >
         <div
           class="bg-cream w-full max-w-5xl max-h-[90vh] rounded-3xl shadow-2xl border-4 border-navy flex flex-col overflow-hidden relative transform scale-95 transition-transform duration-300"
           id="modalContent"
+          data-modal-content
         >
           <!-- Modal Header -->
           <div
@@ -1214,7 +1375,8 @@
               Judul Mata Kuliah
             </h2>
             <button
-              onclick="closeModal()"
+              data-action="close-subject-modal"
+              aria-label="Tutup modal"
               class="w-10 h-10 bg-terracotta text-white rounded-full flex items-center justify-center border-2 border-navy hover:bg-rust hover:rotate-90 transition-all shadow-sm"
             >
               <i class="fas fa-times text-xl"></i>
@@ -1373,6 +1535,209 @@
         </div>
       </div>
 
+      <!-- Lightbox Galeri Karya Inovasi -->
+      <div
+        id="karyaGalleryModal"
+        class="fixed inset-0 z-[75] hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-label="Galeri karya inovasi"
+      >
+        <div
+          id="karyaGalleryBackdrop"
+          class="absolute inset-0 bg-navy/95 opacity-0"
+        ></div>
+
+        <div id="karyaGalleryShell" class="relative flex h-full w-full flex-col">
+          <!-- Top bar -->
+          <div
+            class="flex items-start justify-between gap-4 px-4 pt-4 sm:px-6 sm:pt-6"
+          >
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+              <div
+                class="flex items-baseline gap-1.5 rounded-lg border border-white/20 bg-navy/40 px-4 py-2"
+              >
+                <span
+                  id="karyaGalleryCounter"
+                  class="text-sm font-black text-white"
+                  >1</span
+                >
+                <span class="text-xs text-white/40">/</span>
+                <span
+                  id="karyaGalleryTotal"
+                  class="text-xs font-bold text-white/60"
+                  >8</span
+                >
+              </div>
+              <span
+                id="karyaGalleryBadge"
+                class="rounded-full bg-forest px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white"
+                >Perlengkapan</span
+              >
+            </div>
+            <button
+              data-action="close-karya-gallery"
+              aria-label="Tutup"
+              class="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-white/20 bg-navy/40 text-lg text-white transition-all duration-300 hover:bg-terracotta hover:border-terracotta"
+            >
+              <i class="fas fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Stage -->
+          <div
+            id="karyaGalleryStage"
+            class="relative flex min-h-0 flex-1 items-center justify-center px-3 py-3 sm:px-16"
+          >
+            <button
+              data-action="karya-gallery-prev"
+              id="karyaGalleryPrev"
+              aria-label="Sebelumnya"
+              class="absolute left-2 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-lg border border-white/20 bg-navy/40 text-white transition-all duration-300 hover:bg-white hover:text-navy sm:left-4 sm:h-12 sm:w-12"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div
+              class="relative flex max-h-full max-w-full items-center justify-center"
+            >
+              <img
+                id="karyaGalleryImage"
+                src=""
+                alt="Foto Karya Inovasi"
+                class="max-h-[68vh] w-auto max-w-full rounded-2xl object-contain shadow-[0_40px_90px_-30px_rgba(0,0,0,0.8)]"
+              />
+            </div>
+
+            <button
+              data-action="karya-gallery-next"
+              id="karyaGalleryNext"
+              aria-label="Berikutnya"
+              class="absolute right-2 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-lg border border-white/20 bg-navy/40 text-white transition-all duration-300 hover:bg-white hover:text-navy sm:right-4 sm:h-12 sm:w-12"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- Caption + filmstrip -->
+          <div class="px-4 pb-5 sm:px-6">
+            <p
+              id="karyaGalleryCaption"
+              class="text-center text-xs font-semibold tracking-wide text-white/60 sm:text-sm"
+            >
+              Gunakan ← → untuk berpindah foto
+            </p>
+            <div
+              id="karyaGalleryStrip"
+              class="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for Karya Inovasi -->
+      <div
+        id="karyaModal"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-labelledby="karyaModalTitle"
+        class="fixed inset-0 bg-navy/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4"
+      >
+        <div
+          class="bg-cream w-full max-w-5xl max-h-[90vh] rounded-3xl shadow-2xl border-4 border-navy flex flex-col overflow-hidden relative transform scale-95 transition-transform duration-300"
+          id="karyaModalContent"
+          data-modal-content
+        >
+          <!-- Modal Header -->
+          <div
+            class="bg-white p-6 border-b-4 border-navy flex justify-between items-start gap-4 z-10 sticky top-0"
+          >
+            <div class="min-w-0">
+              <span
+                id="karyaModalBadge"
+                class="inline-block bg-mustard/25 text-rust border-2 border-mustard font-sans font-bold text-[10px] tracking-widest uppercase px-3 py-1 rounded-full mb-2"
+              >
+                Media Pembelajaran
+              </span>
+              <h2
+                id="karyaModalTitle"
+                class="font-serif font-black text-lg sm:text-2xl text-navy leading-tight"
+              >
+                Karya Inovasi
+              </h2>
+            </div>
+            <button
+              data-action="close-karya-modal"
+              aria-label="Tutup modal"
+              class="w-10 h-10 shrink-0 bg-terracotta text-white rounded-full flex items-center justify-center border-2 border-navy hover:bg-rust hover:rotate-90 transition-all shadow-sm"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+
+          <!-- Modal Body (Scrollable) -->
+          <div
+            id="karyaModalBody"
+            class="p-6 sm:p-10 overflow-y-auto flex-grow relative bg-white"
+          >
+            <div class="space-y-12" id="karyaModalSections"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal untuk Refleksi Pengalaman Belajar & RTL -->
+      <div
+        id="rtlModal"
+        class="fixed inset-0 bg-navy/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-labelledby="rtlModalTitle"
+      >
+        <div
+          class="bg-cream w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl border-4 border-navy flex flex-col overflow-hidden relative transform scale-95 transition-transform duration-300"
+          id="rtlModalContent"
+          data-modal-content
+        >
+          <!-- Modal Header -->
+          <div
+            class="bg-white p-6 border-b-4 border-navy flex justify-between items-start gap-4 z-10 sticky top-0"
+          >
+            <div class="min-w-0">
+              <span
+                id="rtlModalBadge"
+                class="inline-block bg-mustard/25 text-rust border-2 border-mustard font-sans font-bold text-[10px] tracking-widest uppercase px-3 py-1 rounded-full mb-2"
+              >
+                Indikator 1
+              </span>
+              <h2
+                id="rtlModalTitle"
+                class="font-serif font-black text-lg sm:text-2xl text-navy leading-tight"
+              >
+                Refleksi Pengalaman Belajar
+              </h2>
+            </div>
+            <button
+              data-action="close-rtl-modal"
+              aria-label="Tutup modal"
+              class="w-10 h-10 shrink-0 bg-terracotta text-white rounded-full flex items-center justify-center border-2 border-navy hover:bg-rust hover:rotate-90 transition-all shadow-sm"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+
+          <!-- Modal Body (Scrollable) -->
+          <div
+            id="rtlModalBody"
+            class="p-6 sm:p-10 overflow-y-auto flex-grow relative bg-white"
+          >
+            <div class="space-y-8" id="rtlModalSections"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- ================= PAGE 7: MATA KULIAH 2 (SEMESTER 2) ================= -->
       <div id="page-7" class="page-container flex-col min-h-[85vh]">
         <!-- Cute Decorations -->
@@ -1409,7 +1774,8 @@
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full perspective-1000"
         >
           <button
-            onclick="openModalSmt2('Pembelajaran Mendalam dan Asesmen Lanjut')"
+            data-action="open-subject-modal-smt2"
+            data-subject="Pembelajaran Mendalam dan Asesmen Lanjut"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1433,7 +1799,8 @@
           </button>
 
           <button
-            onclick="openModalSmt2('Pembelajaran Sosial dan Emosional')"
+            data-action="open-subject-modal-smt2"
+            data-subject="Pembelajaran Sosial dan Emosional"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1457,9 +1824,8 @@
           </button>
 
           <button
-            onclick="
-              openModalSmt2('Teknologi Baru dalam Pengajaran dan Pembelajaran')
-            "
+            data-action="open-subject-modal-smt2"
+            data-subject="Teknologi Baru dalam Pengajaran dan Pembelajaran"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1483,7 +1849,8 @@
           </button>
 
           <button
-            onclick="openModalSmt2('Projek Kepemimpinan')"
+            data-action="open-subject-modal-smt2"
+            data-subject="Projek Kepemimpinan"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1507,7 +1874,8 @@
           </button>
 
           <button
-            onclick="openModalSmt2('Praktik Pengalaman Lapangan (PPL) Mandiri')"
+            data-action="open-subject-modal-smt2"
+            data-subject="Praktik Pengalaman Lapangan (PPL) Mandiri"
             class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
           >
             <div
@@ -1533,13 +1901,13 @@
 
         <div class="mt-10 flex justify-between w-full">
           <button
-            onclick="goToPage(4)"
+            data-nav="4"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Previous
           </button>
           <button
-            onclick="goToPage(8)"
+            data-nav="8"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Next
@@ -1634,13 +2002,13 @@
         <!-- Navigation Buttons -->
         <div class="mt-6 flex justify-between w-full max-w-2xl z-10">
           <button
-            onclick="goToPage(5)"
+            data-nav="5"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             Previous
           </button>
           <button
-            onclick="goToPage(1)"
+            data-nav="1"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-10 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
             <i class="fas fa-home"></i> Home
@@ -1648,10 +2016,7 @@
         </div>
       </div>
       <!-- ================= PAGE 8: REFLEKSI DAN RTL ================= -->
-      <div
-        id="page-8"
-        class="page-container flex-col items-center min-h-[85vh]"
-      >
+      <div id="page-8" class="page-container flex-col min-h-[85vh]">
         <div class="text-center mb-10">
           <h2
             class="text-4xl sm:text-5xl font-serif font-black text-navy mb-4 inline-block relative"
@@ -1662,35 +2027,26 @@
             ></i>
           </h2>
           <p class="text-lg text-navy/80 font-medium font-sans">
-            Ringkasan refleksi dan Rencana Tindak Lanjut (RTL)
+            Refleksi Pengalaman Belajar Selama Mengikuti PPG &amp; Rencana
+            Tindak Lanjut (RTL)
           </p>
         </div>
 
-        <div
-          class="w-full max-w-3xl bg-white border-4 border-navy rounded-3xl shadow-3d-md p-8 text-center"
-        >
-          <i class="fas fa-clipboard-list text-5xl text-forest mb-4"></i>
-          <h3 class="font-serif font-bold text-xl text-navy mb-3">
-            Konten sedang disiapkan
-          </h3>
-          <p class="text-navy/70 font-sans">
-            Halaman ini akan diisi dengan ringkasan refleksi dari seluruh
-            mata kuliah beserta Rencana Tindak Lanjut (RTL) masing-masing.
-          </p>
-        </div>
+        <!-- ===== KARTU: INDIKATOR 1 & 2 (dirender oleh js/features/refleksi-rtl.js) ===== -->
+        <div id="rtlCards" class="w-full flex flex-col gap-12"></div>
 
         <div class="mt-10 flex justify-between w-full">
           <button
-            onclick="goToPage(7)"
+            data-nav="7"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
-            <i class="fas fa-book-open"></i> Refleksi Semester 2
+            Previous
           </button>
           <button
-            onclick="goToPage(9)"
+            data-nav="9"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
-            Karya Inovasi <i class="fas fa-lightbulb ml-2"></i>
+            Next
           </button>
         </div>
       </div>
@@ -1710,35 +2066,399 @@
             ></i>
           </h2>
           <p class="text-lg text-navy/80 font-medium font-sans">
-            Kumpulan karya dan inovasi yang saya kembangkan selama masa PPG
+            Karya dan inovasi media pembelajaran yang saya kembangkan selama
+            masa PPG
+          </p>
+        </div>
+
+        <!-- ===== Featured Karya ===== -->
+        <div
+          class="w-full max-w-4xl bg-gradient-to-br from-white via-cream/50 to-white p-7 sm:p-8 rounded-3xl shadow-[6px_6px_0px_#17324D] border-4 border-navy relative z-10 mb-12"
+        >
+          <div class="ribbon">
+            <span class="absolute top-3 right-3 text-white text-xs"></span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-start gap-5">
+            <div
+              class="w-16 h-16 shrink-0 bg-mustard text-navy rounded-2xl flex items-center justify-center border-4 border-navy shadow-3d-sm transform -rotate-6"
+            >
+              <i class="fas fa-user-secret text-2xl"></i>
+            </div>
+
+            <div class="flex-1">
+              <span
+                class="inline-block bg-mustard/25 text-rust border-2 border-mustard font-sans font-bold text-xs tracking-widest uppercase px-3 py-1 rounded-full mb-3"
+              >
+                Media Pembelajaran IPAS
+              </span>
+              <h3
+                id="karyaJudul"
+                class="font-serif font-black text-navy text-xl sm:text-2xl leading-snug mb-3"
+              >
+                Penggunaan Media Pembelajaran “Detektif Organ Pernapasan
+                Manusia” (Game Edukasi Interaktif Berbasis Kompetisi) pada
+                Materi Ciri-Ciri dan Fungsi Organ Pernapasan Manusia untuk Murid
+                Kelas VI Sekolah Dasar
+              </h3>
+              <p
+                id="karyaRingkasan"
+                class="text-navy/80 font-sans leading-relaxed text-justify mb-5"
+              >
+                Media pembelajaran berbentuk permainan edukatif interaktif
+                berbasis kompetisi yang membantu murid kelas VI memahami nama,
+                ciri-ciri, fungsi, dan letak organ pernapasan manusia melalui
+                kegiatan belajar sambil bermain.
+              </p>
+
+              <div id="karyaMeta" class="grid grid-cols-1 gap-3 mb-6"></div>
+
+              <div class="flex flex-wrap gap-3">
+                <button
+                  data-action="scroll-to-video"
+                  class="btn-3d bg-gradient-to-r from-navy to-forest text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300 inline-flex items-center gap-2"
+                >
+                  <i class="fab fa-youtube"></i> Tonton Video
+                </button>
+                <button
+                  data-action="open-karya-gallery"
+                  data-set="perlengkapan"
+                  data-index="0"
+                  class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300 inline-flex items-center gap-2"
+                >
+                  <i class="fas fa-expand"></i> Perlengkapan Karya Inovasi
+                </button>
+                <button
+                  data-action="open-karya-gallery"
+                  data-set="dokumentasi"
+                  data-index="0"
+                  class="btn-3d bg-gradient-to-r from-terracotta to-rust text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300 inline-flex items-center gap-2"
+                >
+                  <i class="fas fa-expand"></i> Dokumentasi Karya Inovasi
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Video Presentasi Karya (YouTube) ===== -->
+        <div id="karyaVideo" class="w-full max-w-4xl mx-auto mt-12 scroll-mt-24">
+          <div class="text-center mb-6">
+            <h3
+              class="font-serif font-black text-2xl sm:text-3xl text-navy inline-block relative"
+            >
+              Video Presentasi Karya
+              <div
+                class="absolute -bottom-2 left-0 w-full h-4 bg-gradient-to-r from-mustard via-terracotta to-rust -z-10 rounded-full"
+              ></div>
+            </h3>
+            <p class="text-navy/70 font-medium font-sans mt-3">
+              Rekaman demo media pembelajaran
+              &ldquo;Detektif Organ Pernapasan Manusia&rdquo; saat digunakan di
+              kelas
+            </p>
+          </div>
+
+          <div
+            class="bg-white border-4 border-navy rounded-3xl shadow-3d-md overflow-hidden"
+          >
+            <!-- Catatan tampil bila halaman dibuka lewat file:// (YouTube error 153) -->
+            <div
+              class="karya-video-note items-start gap-4 rounded-2xl border-2 border-navy bg-cream/60 p-6"
+            >
+              <i
+                class="fas fa-triangle-exclamation text-xl text-rust shrink-0 mt-1"
+              ></i>
+              <div>
+                <p class="font-sans font-bold text-navy">
+                  Video tidak dapat diputar dari berkas lokal
+                </p>
+                <p class="font-sans text-sm text-navy/70 mt-1">
+                  Jalankan situs lewat server lokal
+                  (<code>npm start</code> lalu buka
+                  <code>http://localhost:8080</code>) agar pemutar YouTube
+                  berjalan, atau buka videonya langsung di YouTube.
+                </p>
+              </div>
+            </div>
+
+            <div class="karya-video-player w-full aspect-video bg-navy">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/Mc_lAABpjXM?rel=0&amp;modestbranding=1"
+                title="Video Presentasi Karya Inovasi — Media Pembelajaran IPAS"
+                class="w-full h-full border-0"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <div
+              class="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6 border-t-4 border-navy bg-cream/60"
+            >
+              <div class="min-w-0">
+                <h4
+                  class="font-serif font-bold text-lg sm:text-xl text-navy leading-snug"
+                >
+                  Game Edukasi Interaktif Berbasis Kompetisi
+                </h4>
+                <p class="text-navy/70 font-medium font-sans text-sm mt-1">
+                  Media Pembelajaran IPAS &mdash; Kelas VI Sekolah Dasar
+                </p>
+              </div>
+              <a
+                href="https://youtu.be/Mc_lAABpjXM"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-5 py-2.5 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 transition-all duration-300 inline-flex items-center gap-2 text-sm shrink-0"
+              >
+                <i class="fab fa-youtube"></i> Buka di YouTube
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Grid Bagian Karya (tema kartu Refleksi 1 & 2) ===== -->
+        <div class="w-full text-center mb-6">
+          <h3
+            id="karyaIsiHeading"
+            class="font-serif font-black text-2xl sm:text-3xl text-navy inline-block relative"
+          >
+            Isi Karya Inovasi
+            <div
+              class="absolute -bottom-2 left-0 w-full h-4 bg-gradient-to-r from-mustard via-terracotta to-rust -z-10 rounded-full"
+            ></div>
+          </h3>
+          <p class="text-navy/70 font-medium font-sans mt-3">
+            Klik tombol bagian untuk membuka rincian karya
           </p>
         </div>
 
         <div
-          class="w-full max-w-3xl bg-white border-4 border-navy rounded-3xl shadow-3d-md p-8 text-center"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full perspective-1000"
         >
-          <i class="fas fa-lightbulb text-5xl text-mustard mb-4"></i>
-          <h3 class="font-serif font-bold text-xl text-navy mb-3">
-            Konten sedang disiapkan
-          </h3>
-          <p class="text-navy/70 font-sans">
-            Halaman ini akan diisi dengan daftar karya inovasi, deskripsi
-            singkat, dan dokumentasi setiap karya yang saya buat.
-          </p>
+          <!-- Latar Belakang -->
+          <button
+            data-action="open-karya"
+            data-section="latar-belakang"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-forest/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-forest text-white rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-book-open text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Latar Belakang
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-forest mt-4 bg-forest/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
+
+          <!-- Masalah -->
+          <button
+            data-action="open-karya"
+            data-section="masalah"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-rust/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-rust text-white rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-triangle-exclamation text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Masalah
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-rust mt-4 bg-rust/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
+
+          <!-- Solusi -->
+          <button
+            data-action="open-karya"
+            data-section="solusi"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-mustard/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-mustard text-navy rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-wand-magic-sparkles text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Solusi
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-rust mt-4 bg-mustard/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
+
+          <!-- Gagasan -->
+          <button
+            data-action="open-karya"
+            data-section="gagasan"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-terracotta/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-terracotta text-white rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-lightbulb text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Gagasan
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-terracotta mt-4 bg-terracotta/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
+
+          <!-- Tujuan -->
+          <button
+            data-action="open-karya"
+            data-section="tujuan"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-navy/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-navy text-white rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-bullseye text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Tujuan
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-navy mt-4 bg-navy/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
+
+          <!-- Rancangan -->
+          <button
+            data-action="open-karya"
+            data-section="rancangan"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-forest/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-forest text-white rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-screwdriver-wrench text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Rancangan
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-forest mt-4 bg-forest/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
+
+          <!-- Implementasi -->
+          <button
+            data-action="open-karya"
+            data-section="implementasi"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-mustard/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-mustard text-navy rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-chalkboard-user text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Implementasi
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-rust mt-4 bg-mustard/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
+
+          <!-- Indikator Keberhasilan -->
+          <button
+            data-action="open-karya"
+            data-section="indikator"
+            class="btn-3d bg-white border-4 border-navy p-6 rounded-3xl shadow-3d-md hover:-translate-y-3 transition-all duration-300 text-left flex flex-col justify-between group relative overflow-hidden"
+          >
+            <div
+              class="absolute -right-4 -top-4 w-20 h-20 bg-terracotta/10 rounded-full group-hover:scale-150 transition-transform duration-500 z-0"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-12 h-12 bg-terracotta text-white rounded-full flex items-center justify-center mb-4 border-2 border-navy shadow-sm transform group-hover:rotate-12 transition-transform"
+              >
+                <i class="fas fa-clipboard-check text-xl"></i>
+              </div>
+              <h3 class="font-serif font-bold text-xl text-navy mb-2">
+                Indikator Keberhasilan
+              </h3>
+            </div>
+            <div
+              class="text-sm font-bold font-sans text-terracotta mt-4 bg-terracotta/10 inline-block px-3 py-1 rounded-full relative z-10 w-fit"
+            >
+              Lihat Bagian <i class="fas fa-arrow-right ml-1"></i>
+            </div>
+          </button>
         </div>
 
         <div class="mt-10 flex justify-between w-full">
           <button
-            onclick="goToPage(8)"
+            data-nav="8"
             class="btn-3d bg-gradient-to-r from-forest to-navy text-white border-2 border-navy px-6 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
-            <i class="fas fa-clipboard-list"></i> Refleksi dan RTL
+            Previous
           </button>
           <button
-            onclick="goToPage(5)"
+            data-nav="5"
             class="btn-3d bg-gradient-to-r from-mustard to-terracotta text-white border-2 border-navy px-8 py-3 rounded-full font-bold shadow-[3px_3px_0px_#17324D] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#17324D] transition-all duration-300"
           >
-            Galeri <i class="fas fa-images ml-2"></i>
+            Next
           </button>
         </div>
       </div>
@@ -1760,7 +2480,28 @@
       </div>
     </footer>
 
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+    <!-- ============ MODUL JS (urutan eksekusi penting) ============ -->
+    <!-- Data -->
+    <script src="js/data/accents.js"></script>
+    <script src="js/data/mata-kuliah-smt1.js"></script>
+    <script src="js/data/mata-kuliah-smt2.js"></script>
+    <script src="js/data/karya-inovasi.js"></script>
+    <script src="js/data/refleksi-rtl.js"></script>
+    <script src="js/data/galeri.js"></script>
+    <!-- Core -->
+    <script src="js/core/dom.js"></script>
+    <script src="js/core/modal.js"></script>
+    <script src="js/core/router.js"></script>
+    <!-- Fitur -->
+    <script src="js/features/navbar.js"></script>
+    <script src="js/features/accordion.js"></script>
+    <script src="js/features/subject-refleksi.js"></script>
+    <script src="js/features/galeri.js"></script>
+    <script src="js/features/karya.js"></script>
+    <script src="js/features/karya-galeri.js"></script>
+    <script src="js/features/refleksi-rtl.js"></script>
+    <!-- Dispatcher aksi + entry point -->
+    <script src="js/core/actions.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

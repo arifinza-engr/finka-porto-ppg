@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <title>browser-check</title>
+    <style>
+      body { font: 14px monospace; padding: 12px; }
+      .ok { color: #0a7a37; }
+      .bad { color: #c00; }
+      iframe { width: 1200px; height: 800px; border: 1px solid #ccc; }
+    </style>
+  </head>
+  <body>
+    <h1>Verifikasi di browser sungguhan (Chrome headless)</h1>
+    <div id="report">menjalankan…</div>
+    <iframe id="app" src="../index.html"></iframe>
+    <script>
+      const results = [];
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+      const check = (name, ok, detail = "") =>
+        results.push({ name, ok, detail });
+
+      const iframe = document.getElementById("app");
+
+      iframe.addEventListener("load", async () => {
+        const win = iframe.contentWindow;
+        const doc = iframe.contentDocument;
+        const errors = [];
+        win.addEventListener("error", (e) => errors.push(String(e.message)));
+        win.console.error = (...a) => errors.push(a.map(String).join(" "));
+        const click = (el) =>
+          el?.dispatchEvent(
+            new win.MouseEvent("click", { bubbles: true, cancelable: true }),
+          );
+
+        await wait(2500);
+
+        // Apakah requestAnimationFrame berjalan di iframe?
+        let rafFired = false;
+        win.requestAnimationFrame(() => { rafFired = true; });
+        await wait(600);
+        check("Info: requestAnimationFrame di iframe = " + rafFired, true);
+        check("GSAP ticker berjalan = " + (win.gsap?.ticker ? "ya" : "tidak"), Boolean(win.gsap?.ticker));
+
+        // -- Tailwind & GSAP termuat --
+        check("Tailwind CDN termuat", Boolean(win.tailwind));
+        check("GSAP termuat", typeof win.gsap === "object");
+        check("ScrollTrigger termuat", typeof win.ScrollTrigger !== "undefined");
+        check("Porto.actions terpasang", typeof win.Porto?.actions?.init === "function");
+        check("Porto.router terpasang", typeof win.Porto?.router?.goToPage === "function");
+        check("Namespace Porto ada", typeof win.Porto === "object");
+
+        // -- FontAwesome --
+        const icon = doc.querySelector(".fas.fa-home");
+        check(
+          "FontAwesome ter-render",
+          Boolean(icon) && getComputedStyle(icon, ":before").content !== "none",
+        );
+
+        // -- Gaya kustom terpasang --
+        const nav = doc.querySelector(".navbar");
+        check(
+          "CSS kustom (navbar) terpasang",
+          nav && getComputedStyle(nav).position === "fixed",
+        );
+
+        // -- Navigasi --
+        // Diagnostik: apakah event klik mencapai document?
+        let delegated = 0;
+        doc.addEventListener("click", () => { delegated++; });
+        const navBtn = doc.querySelector('[data-nav="5"]');
+        navBtn.click();
+        await wait(900);
+        check("Click manual (native .click) delegated count = " + delegated, delegated > 0);
+        check("Setelah native click: page-5 = " + doc.getElementById("page-5").className, doc.getElementById("page-5").classList.contains("active"));
+
+        // Diagnostik: panggil router langsung
+        win.Porto.router.goToPage(5);
+        await wait(800);
+        check("goToPage() langsung: page-5 = " + doc.getElementById("page-5").className, doc.getElementById("page-5").classList.contains("active"));
+        check("Error setelah goToPage langsung: " + (errors.join(" | ") || "tidak ada"), true);
+        check("Tombol nav Galeri ditemukan", Boolean(navBtn), navBtn ? navBtn.className : "tidak ditemukan");
+        click(navBtn);
+        await wait(1500);
+        check("Navigasi ke halaman Galeri", doc.getElementById("page-5").classList.contains("active"));
+        check("Galeri: page-5 class = " + doc.getElementById("page-5").className, true);
+        check("Error di iframe: " + (errors.join(" | ") || "tidak ada"), true);
+        check(
+          "Grid galeri ter-render",
+          doc.querySelectorAll("#galleryGrid .g-item").length === 48,
+          "jumlah = " + doc.querySelectorAll("#galleryGrid .g-item").length,
+        );
+        const item = doc.querySelector("#galleryGrid .g-item");
+        check("Ukuran foto dihitung (layout justify)", item && item.style.width !== "");
+        check("Foto galeri benar-benar dimuat", item && item.querySelector("img").complete && item.querySelector("img").naturalWidth > 0);
+
+        // -- Lightbox --
+        click(item);
+        await wait(800);
+        check("Lightbox terbuka", !doc.getElementById("galleryModal").classList.contains("hidden"));
+        check("Gambar lightbox termuat", doc.getElementById("galleryImage").naturalWidth > 0);
+        click(doc.querySelector('[data-action="gallery-next"]'));
+        await wait(500);
+        check("Navigasi lightbox maju", doc.getElementById("galleryCounter").textContent === "2");
+
+        // -- Escape menutup lightbox --
+        doc.dispatchEvent(new win.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+        await wait(900);
+        check("Escape menutup lightbox", doc.getElementById("galleryModal").classList.contains("hidden"));
+
+        // -- Modal mata kuliah --
+        click(doc.querySelector('[data-nav="4"]'));
+        await wait(1200);
+        click(doc.querySelector('[data-action="open-subject-modal"]'));
+        await wait(600);
+        check("Modal mata kuliah terbuka", !doc.getElementById("subjectModal").classList.contains("hidden"));
+        check("Isi 4C ter-render", doc.getElementById("modal-connection").innerHTML.includes("<p"));
+        click(doc.querySelector('[data-action="close-subject-modal"]'));
+        await wait(700);
+        check("Modal mata kuliah tertutup", doc.getElementById("subjectModal").classList.contains("hidden"));
+
+        // -- Karya --
+        click(doc.querySelector('[data-nav="9"]'));
+        await wait(1200);
+        click(doc.querySelector('[data-action="open-karya"]'));
+        await wait(700);
+        check("Modal karya terbuka", !doc.getElementById("karyaModal").classList.contains("hidden"));
+        check("8 bagian karya ter-render", doc.querySelectorAll("[data-karya-section]").length === 8);
+        click(doc.querySelector('[data-action="close-karya-modal"]'));
+        await wait(700);
+
+        click(doc.querySelector('[data-action="open-karya-gallery"]'));
+        await wait(900);
+        check("Lightbox karya terbuka", !doc.getElementById("karyaGalleryModal").classList.contains("hidden"));
+        check("Foto karya termuat", doc.getElementById("karyaGalleryImage").naturalWidth > 0);
+        click(doc.querySelector('[data-action="close-karya-gallery"]'));
+        await wait(500);
+
+        // -- Akordeon --
+        click(doc.querySelector('[data-nav="3"]'));
+        await wait(1200);
+        click(doc.querySelector('[data-action="toggle-section"][data-section="tujuan"]'));
+        await wait(700);
+        check("Akordeon terbuka", !doc.getElementById("content-tujuan").classList.contains("hidden"));
+
+        // -- Refleksi & RTL (page 8) --
+        click(doc.querySelector('[data-nav="8"]'));
+        await wait(1400);
+        check("Page-8 aktif", doc.getElementById("page-8").classList.contains("active"));
+        const rtlCards = doc.querySelectorAll("#rtlCards [data-action='open-rtl-modal']");
+        check("5 kartu RTL ter-render", rtlCards.length === 5, "jumlah = " + rtlCards.length);
+        const cardStyle = rtlCards[0] ? getComputedStyle(rtlCards[0]) : null;
+        check("Kartu RTL memakai gaya kartu yang sama (border 4px navy)",
+          cardStyle && cardStyle.borderTopWidth === "4px" && cardStyle.borderTopStyle === "solid",
+          cardStyle ? cardStyle.borderTopWidth + " " + cardStyle.borderTopStyle : "tidak ada");
+        click(rtlCards[0]);
+        await wait(700);
+        check("Modal Refleksi & RTL terbuka", !doc.getElementById("rtlModal").classList.contains("hidden"));
+        check("Isi uraian jawaban tampil", doc.getElementById("rtlModalSections").innerHTML.includes("<p"));
+        const pAlign = doc.querySelector("#rtlModalSections p") ? getComputedStyle(doc.querySelector("#rtlModalSections p")).textAlign : "";
+        check("Paragraf rata kanan-kiri (justify)", pAlign === "justify", pAlign);
+        click(doc.querySelector('[data-action="close-rtl-modal"]'));
+        await wait(700);
+        check("Modal Refleksi & RTL tertutup", doc.getElementById("rtlModal").classList.contains("hidden"));
+
+        // -- Bukti kesamaan gaya: bandingkan kartu RTL dengan kartu Refleksi 1 --
+        click(doc.querySelector('[data-nav="4"]'));
+        await wait(1200);
+        const refCard = doc.querySelector("#page-4 .btn-3d");
+        const rtlCard = doc.querySelector("#rtlCards .btn-3d");
+        const props = ["backgroundColor", "borderTopWidth", "borderTopColor",
+                       "borderRadius", "boxShadow", "paddingTop", "paddingLeft",
+                       "fontFamily", "textAlign"];
+        const refStyle = getComputedStyle(refCard);
+        const rtlStyle = getComputedStyle(rtlCard);
+        const diffs = props.filter((p) => refStyle[p] !== rtlStyle[p]);
+        check("Gaya kartu RTL identik dengan kartu Refleksi 1 (" + props.length + " properti)",
+          diffs.length === 0,
+          diffs.length ? "beda: " + diffs.map((p) => p + " (" + refStyle[p] + " vs " + rtlStyle[p] + ")").join(", ") : "");
+
+        // Judul kartu & chip sama gaya
+        const refTitle = doc.querySelector("#page-4 .btn-3d h3");
+        const rtlTitle = doc.querySelector("#rtlCards .btn-3d h3");
+        const tDiff = ["fontSize", "fontWeight", "color", "fontFamily"]
+          .filter((p) => getComputedStyle(refTitle)[p] !== getComputedStyle(rtlTitle)[p]);
+        check("Gaya judul kartu RTL identik dengan Refleksi 1", tDiff.length === 0, tDiff.join(","));
+
+        // Chip "Buka Refleksi" sama gaya
+        const refChip = doc.querySelector("#page-4 .btn-3d > div:last-child");
+        const rtlChip = doc.querySelector("#rtlCards .btn-3d > div:last-child");
+        const cDiff = ["fontSize", "fontWeight", "borderRadius", "paddingLeft"]
+          .filter((p) => getComputedStyle(refChip)[p] !== getComputedStyle(rtlChip)[p]);
+        check("Gaya chip RTL identik dengan Refleksi 1", cDiff.length === 0, cDiff.join(","));
+
+        // Judul indikator memakai gaya heading karyaELLER
+        const karyaHeading = doc.getElementById("karyaIsiHeading");
+        const rtlHeading = doc.querySelector("#rtlCards h3.font-black");
+        const hDiff = ["fontSize", "fontWeight", "color", "fontFamily"]
+          .filter((p) => getComputedStyle(karyaHeading)[p] !== getComputedStyle(rtlHeading)[p]);
+        check("Gaya judul indikator RTL identik dengan heading Karya", hDiff.length === 0, hDiff.join(","));
+        // Tanpa garis bawah (underline gradien) pada judul indikator
+        const rtlHeadingChildren = doc.querySelector("#rtlCards h3.font-black").children.length;
+        check("Judul indikator tanpa garis bawah", rtlHeadingChildren === 0,
+          "jumlah elemen anak = " + rtlHeadingChildren);
+
+        // -- Ringkas --
+        const passed = results.filter((r) => r.ok).length;
+        const failed = results.filter((r) => !r.ok);
+        const report = doc_report();
+        function doc_report() {
+          const el = document.getElementById("report");
+          el.innerHTML =
+            `<p class="${failed.length ? "bad" : "ok"}">${passed} lulus / ${failed.length} gagal</p>` +
+            results
+              .map(
+                (r) =>
+                  `<div class="${r.ok ? "ok" : "bad"}">${r.ok ? "OK  " : "FAIL"} ${r.name}${r.detail ? " — " + r.detail : ""}</div>`,
+              )
+              .join("");
+          document.title = failed.length
+            ? `GAGAL:${failed.length}`
+            : `LOLOS:${passed}`;
+          return el;
+        }
+        report();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+/* =========================================================
+   PORTOFOLIO PPG — Navbar, dropdown "Refleksi", menu mobile
+   ========================================================= */
+
+/* Navbar Styles */
+.navbar {
+  background: linear-gradient(135deg, #ffffff 0%, #fef9f3 100%);
+  backdrop-filter: blur(10px);
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #e3a72f, #3f6b57, #c85a3f, #17324d)
+    1;
+  box-shadow: 0 4px 20px rgba(23, 50, 77, 0.1);
+}
+
+.nav-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+.nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #e3a72f, #c85a3f);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+.nav-item:hover::after,
+.nav-item.active::after {
+  width: 100%;
+}
+.nav-item:hover {
+  transform: translateY(-2px);
+}
+.nav-item.active {
+  color: #c85a3f;
+  font-weight: 700;
+}
+
+/* Dropdown Nav (Refleksi) */
+.nav-dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.nav-dropdown.open #navRefleksiChevron,
+.nav-dropdown:hover #navRefleksiChevron {
+  transform: rotate(180deg);
+}
+.dropdown-item {
+  font-size: 0.9rem;
+}
+.dropdown-item:hover {
+  background-color: rgba(227, 167, 47, 0.12);
+  transform: translateX(4px);
+}
+.dropdown-item::after {
+  display: none;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  background: linear-gradient(180deg, #ffffff 0%, #fef9f3 100%);
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #17324d, #e3a72f) 1;
+}

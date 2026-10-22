@@ -1,3 +1,7 @@
+/* =========================================================
+   PORTOFOLIO PPG — Dasar: body, latar, halaman, animasi dasar
+   ========================================================= */
+
 body {
   background: linear-gradient(
     135deg,
@@ -40,6 +44,7 @@ body::before {
   z-index: 0;
 }
 
+/* Kontainer halaman: hanya satu yang tampil pada satu waktu */
 .page-container {
   display: none;
   position: relative;
@@ -50,7 +55,9 @@ body::before {
   display: flex;
 }
 
-/* Cute Animations */
+/* =========================================================
+   Animasi dasar
+   ========================================================= */
 
 @keyframes floatSlow {
   0%,
@@ -104,7 +111,7 @@ body::before {
   }
 }
 
-@keyframes pulse-cute {
+@keyframes pulseCute {
   0%,
   100% {
     transform: scale(1);
@@ -130,8 +137,12 @@ body::before {
   animation: sparkle 2s ease-in-out infinite;
 }
 .animate-pulse-cute {
-  animation: pulse-cute 2s ease-in-out infinite;
+  animation: pulseCute 2s ease-in-out infinite;
 }
+
+/* =========================================================
+   Elemen dekoratif
+   ========================================================= */
 
 /* 3D Button Press Effect */
 .btn-3d {
@@ -148,84 +159,6 @@ body::before {
 }
 .cute-card:hover {
   transform: translateY(-8px) rotate(1deg);
-}
-
-/* Navbar Styles */
-.navbar {
-  background: linear-gradient(135deg, #ffffff 0%, #fef9f3 100%);
-  backdrop-filter: blur(10px);
-  border-bottom: 3px solid;
-  border-image: linear-gradient(90deg, #e3a72f, #3f6b57, #c85a3f, #17324d)
-    1;
-  box-shadow: 0 4px 20px rgba(23, 50, 77, 0.1);
-}
-
-.nav-item {
-  position: relative;
-  transition: all 0.3s ease;
-}
-.nav-item::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  width: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #e3a72f, #c85a3f);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-.nav-item:hover::after,
-.nav-item.active::after {
-  width: 100%;
-}
-.nav-item:hover {
-  transform: translateY(-2px);
-}
-.nav-item.active {
-  color: #c85a3f;
-  font-weight: 700;
-}
-
-/* Dropdown Nav (Refleksi) */
-.nav-dropdown-menu {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(-8px);
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease,
-    visibility 0.2s ease;
-}
-.nav-dropdown:hover .nav-dropdown-menu,
-.nav-dropdown.open .nav-dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-.nav-dropdown.open #navRefleksiChevron,
-.nav-dropdown:hover #navRefleksiChevron {
-  transform: rotate(180deg);
-}
-.dropdown-item {
-  font-size: 0.9rem;
-}
-.dropdown-item:hover {
-  background-color: rgba(227, 167, 47, 0.12);
-  transform: translateX(4px);
-}
-.dropdown-item::after {
-  display: none;
-}
-
-/* Mobile Menu */
-.mobile-menu {
-  background: linear-gradient(180deg, #ffffff 0%, #fef9f3 100%);
-  border-bottom: 3px solid;
-  border-image: linear-gradient(90deg, #17324d, #e3a72f) 1;
 }
 
 /* Cover Art Aspect Ratio & Textures */
@@ -260,22 +193,6 @@ body::before {
   background: linear-gradient(135deg, #fef3e2 0%, #fce7d6 100%);
   border: 2px dashed #e3a72f;
   animation: bounceGently 3s ease-in-out infinite;
-}
-
-/* Smooth scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-}
-::-webkit-scrollbar-track {
-  background: linear-gradient(180deg, #f5e8d0 0%, #fef3e2 100%);
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #17324d 0%, #3f6b57 100%);
-  border-radius: 8px;
-  border: 3px solid #f5e8d0;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #c85a3f 0%, #8b4535 100%);
 }
 
 /* Cute Emoji Decorations */
@@ -317,4 +234,101 @@ body::before {
   background: #c85a3f;
   transform: rotate(-45deg);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #f5e8d0 0%, #fef3e2 100%);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #17324d 0%, #3f6b57 100%);
+  border-radius: 8px;
+  border: 3px solid #f5e8d0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c85a3f 0%, #8b4535 100%);
+}
+
+/* Scrollbar terang (di dalam modal berlatar gelap) */
+.custom-scrollbar-light {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+.custom-scrollbar-light::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar-light::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar-light::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  border-radius: 8px;
+}
+.custom-scrollbar-light::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* =========================================================
+   Aksesibilitas
+   ========================================================= */
+
+/* Skip link: muncul saat keyboard fokus masuk */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 2px solid #17324d;
+  background: #fff;
+  color: #17324d;
+  font-weight: 700;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Indikator fokus yang konsisten */
+:focus-visible {
+  outline: 3px solid #e3a72f;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Hormati preferensi pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   Video karya (YouTube)
+   Fallback ketika halaman dibuka lewat file:// — YouTube
+   membalas "Error 153" karena header Referer tidak terkirim.
+   ========================================================= */
+.karya-video-note {
+  display: none;
+}
+.karya-video-player {
+  display: block;
+}
+#karyaVideo.is-local-file .karya-video-note {
+  display: flex;
+}
+#karyaVideo.is-local-file .karya-video-player {
+  display: none;
 }

@@ -1,3 +1,6 @@
+/* Konfigurasi Tailwind (dimuat via CDN tailwindcss).
+   Diperjaga tetap aman bila CDN tidak tersedia (mis. pada pengujian). */
+window.tailwind = window.tailwind || {};
 tailwind.config = {
   theme: {
     extend: {

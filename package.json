@@ -1,0 +1,16 @@
+{
+  "name": "finka-porto-ppg",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portofolio Seminar PPG — Reffinka Meisya Iftianingrum (situs statis)",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "test": "node tools/smoke-test.mjs",
+    "check": "node tools/check-assets.mjs",
+    "lint": "node tools/lint.mjs",
+    "test:browser": "node tools/browser-check.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^27.0.0"
+  }
+}
