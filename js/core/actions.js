@@ -30,10 +30,6 @@ Porto.actions = (() => {
     "close-karya-modal": () => Porto.karya.close(),
     "open-rtl-modal": (el) => Porto.refleksiRtl.open(el.dataset.section),
     "close-rtl-modal": () => Porto.refleksiRtl.close(),
-    "scroll-to-video": () => {
-      const target = document.getElementById("karyaVideo");
-      target?.scrollIntoView({ behavior: "smooth", block: "center" });
-    },
   };
 
   /** Daftarkan aksi kustom (dipakai oleh modul lain bila perlu) */

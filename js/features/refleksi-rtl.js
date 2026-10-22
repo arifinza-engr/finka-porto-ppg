@@ -83,7 +83,7 @@ Porto.refleksiRtl = (() => {
         <div class="w-full">
           <div class="w-full text-center mb-6">
             <h3 class="font-serif font-black text-2xl sm:text-3xl text-navy inline-block relative">
-              ${escapeHTML(indikator.label)} — ${escapeHTML(indikator.title)}
+              ${escapeHTML(indikator.title)}
             </h3>
             <p class="text-navy/70 font-medium font-sans mt-3">
               ${escapeHTML(indikator.subtitle)}
